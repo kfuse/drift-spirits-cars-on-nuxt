@@ -1,0 +1,9 @@
+{
+  "name": "drift-spirits-cars-on-nuxt",
+  "scripts": {
+    "dev": "nuxt"
+  },
+  "dependencies": {
+    "nuxt": "^2.13.2"
+  }
+}
