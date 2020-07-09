@@ -21,13 +21,6 @@ a {
 #content {
   padding: 10px 10px 100px;
 }
-#footer {
-  margin-top: 40px;
-  padding: 10px 0 10px;
-  border-top: 1px solid #ccc;
-  font-size: 14px;
-  text-align: right;
-}
 .text {
   font-size: 14px;
 }
