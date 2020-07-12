@@ -1,6 +1,7 @@
 <template>
 <section id="threeStars">
-<h3 class="titleStar">初期レアリティ☆☆☆ (星3)</h3>
+<h3 v-if="data.id === 'threeStars'" class="titleStar">初期レアリティ☆☆☆ (星3)</h3>
+<h3 v-if="data.id === 'fourStars'" class="titleStar">初期レアリティ☆☆☆☆ (星4)</h3>
 <input type="text" v-model="data.filteringText" class="hiddenText">
 <div class="carListTool">
 <span class="labelStatus">ステータス:</span>
@@ -135,7 +136,7 @@ export default {
       if (partsContainer.className.match(/close/)) {
         partsContainer.className = partsContainer.className.replace(/close/g, "");
         e.target.className += " iconOpened";
-        this.data.isAppliedParts = true;
+        this.$store.commit(this.data.id + '/setAppliedParts', true);
         if (localStorage.getItem("content.driftspirits.car.list." + this.data.stars + "stars.carLevel") !== null) {
           this.carLevel = JSON.parse(localStorage.getItem("content.driftspirits.car.list." + this.data.stars + "stars.carLevel"));
           parts = JSON.parse(localStorage.getItem("content.driftspirits.car.list." + this.data.stars + "stars.parts"));
@@ -162,7 +163,7 @@ export default {
       } else {
         partsContainer.className += " close";
         e.target.className = e.target.className.replace(/iconOpened/g, "");
-        this.data.isAppliedParts = false;
+        this.$store.commit(this.data.id + '/setAppliedParts', false);
         // List.resetParts(this.data.cars, this.data.originalCars);
       }
     },
