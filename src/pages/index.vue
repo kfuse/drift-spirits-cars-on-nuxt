@@ -3,7 +3,7 @@
     <global-header />
     <div id="content">
       <setting-pane />
-      <car-list :data="threeStars" />
+      <car-list :id="'threeStars'" />
     </div>
     <global-footer />
   </div>
@@ -16,11 +16,6 @@ import carList from '~/components/Organisms/car-list'
 import globalFooter from '~/components/Organisms/footer'
 
 export default {
-  computed: {
-    threeStars() {
-      return this.$store.state.threeStars
-    }
-  },
   components: {
     'global-header': globalHeader,
     'setting-pane': settingPane,

@@ -1,5 +1,5 @@
 <template>
-<section id="threeStars">
+<section>
 <h3 v-if="data.id === 'threeStars'" class="titleStar">初期レアリティ☆☆☆ (星3)</h3>
 <h3 v-if="data.id === 'fourStars'" class="titleStar">初期レアリティ☆☆☆☆ (星4)</h3>
 <input type="text" v-model="data.filteringText" class="hiddenText">
@@ -122,7 +122,12 @@
 <script>
 export default {
   props: {
-    'data': Object
+    'id': String
+  },
+  computed: {
+    data() {
+      return this.$store.state[this.id]
+    }
   },
   methods: {
     incrementStar: function() {
