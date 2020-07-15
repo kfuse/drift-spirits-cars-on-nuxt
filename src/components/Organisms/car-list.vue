@@ -9,12 +9,12 @@
 <a href="#" :class="`btnPlus plusStatus${data.plus}`" @click="incrementPlus"><span class="firstPlus">+</span><span class="secondPlus">+</span></a>
 <a href="#" class="btnParts" @click="toggleParts">パーツ</a>
 </div>
-<div class="parts clearfix close" :id="`${data.id}Parts`">
+<div :class="[isPartsOpen === true ? 'parts clearfix' : 'parts clearfix close']" :id="`${data.id}Parts`">
 <ul>
 <li>
 <dl class="clearfix">
 <dt>愛車レベル</dt>
-<dd>レベル: <input type="tel" v-model="data.carLevel" class="iptParts"></dd>
+<dd>レベル: <input type="tel" v-model="carLevel" class="iptParts"></dd>
 </dl>
 </li>
 <li>
@@ -124,9 +124,22 @@ export default {
   props: {
     'id': String
   },
+  data() {
+    return {
+      'isPartsOpen': false
+    }
+  },
   computed: {
     data() {
       return this.$store.state[this.id]
+    },
+    carLevel: {
+      get() {
+        return this.$store.getters['threeStars/getCarLevel']
+      },
+      set(value) {
+        this.$store.commit(this.id + '/setCarLevel', value)
+      }
     }
   },
   methods: {
@@ -141,6 +154,7 @@ export default {
       if (partsContainer.className.match(/close/)) {
         partsContainer.className = partsContainer.className.replace(/close/g, "");
         e.target.className += " iconOpened";
+        this.isPartsOpen = true;
         this.$store.commit(this.data.id + '/setAppliedParts', true);
         if (localStorage.getItem("content.driftspirits.car.list." + this.data.stars + "stars.carLevel") !== null) {
           this.carLevel = JSON.parse(localStorage.getItem("content.driftspirits.car.list." + this.data.stars + "stars.carLevel"));
@@ -168,6 +182,7 @@ export default {
       } else {
         partsContainer.className += " close";
         e.target.className = e.target.className.replace(/iconOpened/g, "");
+        this.isPartsOpen = false;
         this.$store.commit(this.data.id + '/setAppliedParts', false);
         // List.resetParts(this.data.cars, this.data.originalCars);
       }
