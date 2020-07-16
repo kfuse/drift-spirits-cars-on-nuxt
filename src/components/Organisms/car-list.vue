@@ -7,9 +7,10 @@
 <span class="labelStatus">ステータス:</span>
 <a href="#" :class="`btnStars starStatus${data.stars}`" @click="incrementStar"></a>
 <a href="#" :class="`btnPlus plusStatus${data.plus}`" @click="incrementPlus"><span class="firstPlus">+</span><span class="secondPlus">+</span></a>
-<a href="#" class="btnParts" @click="toggleParts">パーツ</a>
+<a href="#" :class="[isPartsOpen === true ? 'btnParts open' : 'btnParts']" @click="toggleParts">パーツ</a>
 </div>
-<div :class="[isPartsOpen === true ? 'parts clearfix' : 'parts clearfix close']" :id="`${data.id}Parts`">
+<slide-up-down :active="isPartsOpen" :duration="500" :id="`${data.id}Parts`">
+<div class="parts clearfix">
 <ul>
 <li>
 <dl class="clearfix">
@@ -86,6 +87,7 @@
 <span class="saveMessage">{{data.saveMessage}}</span>
 </div>
 </div>
+</slide-up-down>
 <div class="tableWrapper">
 <table class="carList">
 <thead>
@@ -149,13 +151,11 @@ export default {
     },
     toggleParts: function(e) {
       e.preventDefault();
-      var partsContainer = document.getElementById(this.data.id + "Parts");
       var parts;
-      if (partsContainer.className.match(/close/)) {
-        partsContainer.className = partsContainer.className.replace(/close/g, "");
-        e.target.className += " iconOpened";
+      if (this.isPartsOpen === false) {
         this.isPartsOpen = true;
         this.$store.commit(this.data.id + '/setAppliedParts', true);
+        /*
         if (localStorage.getItem("content.driftspirits.car.list." + this.data.stars + "stars.carLevel") !== null) {
           this.carLevel = JSON.parse(localStorage.getItem("content.driftspirits.car.list." + this.data.stars + "stars.carLevel"));
           parts = JSON.parse(localStorage.getItem("content.driftspirits.car.list." + this.data.stars + "stars.parts"));
@@ -170,6 +170,7 @@ export default {
             this.data.parts.nakama = parts.nakama;
           }
         }
+        */
         /*
         List.updateParts({
           cars: this.data.cars,
@@ -180,8 +181,6 @@ export default {
         });
         */
       } else {
-        partsContainer.className += " close";
-        e.target.className = e.target.className.replace(/iconOpened/g, "");
         this.isPartsOpen = false;
         this.$store.commit(this.data.id + '/setAppliedParts', false);
         // List.resetParts(this.data.cars, this.data.originalCars);
@@ -362,7 +361,7 @@ export default {
     padding-left: 4px;
     color: #999;
 }
-.iconOpened:after {
+.btnParts.open:after {
     content: "▲";
 }
 .btnSave {
