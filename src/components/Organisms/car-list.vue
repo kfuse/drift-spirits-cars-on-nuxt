@@ -21,8 +21,8 @@
 <li>
 <dl class="clearfix">
 <dt>エンジン</dt>
-<dd>サイズ: <input type="tel" v-model="data.parts.engine.size" class="iptParts"></dd>
-<dd>レベル: <input type="tel" v-model="data.parts.engine.level" class="iptParts"></dd>
+<dd>サイズ: <input type="tel" v-model="engineSize" class="iptParts"></dd>
+<dd>レベル: <input type="tel" v-model="engineLevel" class="iptParts"></dd>
 </dl>
 </li>
 <li>
@@ -139,10 +139,26 @@ export default {
     },
     carLevel: {
       get() {
-        return this.$store.getters['threeStars/getCarLevel']
+        return this.$store.getters[`${this.id}/getCarLevel`]
       },
       set(value) {
-        this.$store.commit(this.id + '/setCarLevel', value)
+        this.$store.commit(`${this.id}/setCarLevel`, value)
+      }
+    },
+    engineSize: {
+      get() {
+        return this.$store.getters[`${this.id}/getEngineSize`]
+      },
+      set(value) {
+        this.$store.commit(`${this.id}/setEngineSize`, value)
+      }
+    },
+    engineLevel: {
+      get() {
+        return this.$store.getters[`${this.id}/getEngineLevel`]
+      },
+      set(value) {
+        this.$store.commit(`${this.id}/setEngineLevel`, value)
       }
     }
   },
