@@ -122,6 +122,8 @@
 </template>
 
 <script>
+import List from '~/lib/list'
+
 export default {
   props: {
     'id': String
@@ -171,19 +173,24 @@ export default {
           }
         }
         */
-        /*
         List.updateParts({
+          id: this.data.id,
           cars: this.data.cars,
           originalCars: this.data.originalCars,
           carLevel: this.data.carLevel,
           parts: this.data.parts,
+          store: this.$store,
           mode: "set"
         });
-        */
       } else {
         this.isPartsOpen = false;
         this.$store.commit(this.data.id + '/setAppliedParts', false);
-        // List.resetParts(this.data.cars, this.data.originalCars);
+        List.resetParts({
+          id: this.data.id,
+          cars: this.data.cars,
+          originalCars: this.data.originalCars,
+          store: this.$store
+        });
       }
     },
     saveParts: function() {
