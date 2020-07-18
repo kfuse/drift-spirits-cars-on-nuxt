@@ -172,7 +172,7 @@ export default {
       e.preventDefault()
       if (this.isPartsOpen === false) {
         this.isPartsOpen = true
-        this.$store.commit(this.data.id + '/setAppliedParts', true)
+        this.$store.commit(`${this.id}/setAppliedParts`, true)
         /*
         if (localStorage.getItem("content.driftspirits.car.list." + this.data.stars + "stars.carLevel") !== null) {
           this.carLevel = JSON.parse(localStorage.getItem("content.driftspirits.car.list." + this.data.stars + "stars.carLevel"));
@@ -200,7 +200,7 @@ export default {
         })
       } else {
         this.isPartsOpen = false
-        this.$store.commit(this.data.id + '/setAppliedParts', false)
+        this.$store.commit(`${this.id}/setAppliedParts`, false)
         List.resetParts({
           id: this.data.id,
           cars: this.data.cars,
@@ -215,8 +215,8 @@ export default {
       setTimeout(() => {
         this.saveMessage = ""
       }, 2000)
+      this.$store.dispatch(`${this.id}/setCarLevel`, this.data.carLevel)
       /*
-      localStorage.setItem("content.driftspirits.car.list." + this.stars + "stars.carLevel", JSON.stringify(this.carLevel));
       localStorage.setItem("content.driftspirits.car.list." + this.stars + "stars.parts", JSON.stringify(this.parts));
       */
       List.updateParts({
