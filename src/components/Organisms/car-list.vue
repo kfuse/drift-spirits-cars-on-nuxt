@@ -216,9 +216,7 @@ export default {
         this.saveMessage = ""
       }, 2000)
       this.$store.dispatch(`${this.id}/setCarLevel`, this.data.carLevel)
-      /*
-      localStorage.setItem("content.driftspirits.car.list." + this.stars + "stars.parts", JSON.stringify(this.parts));
-      */
+      this.$store.dispatch(`${this.id}/setParts`, this.data.parts)
       List.updateParts({
         id: this.data.id,
         cars: this.data.cars,

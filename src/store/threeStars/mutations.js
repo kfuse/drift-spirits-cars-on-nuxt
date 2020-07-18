@@ -2,6 +2,10 @@ export function setCarLevel(state, carLevel) {
   state.carLevel = carLevel
 }
 
+export function setParts(state, parts) {
+  state.parts = parts
+}
+
 export function setEngineSize(state, size) {
   state.parts.engine.size = size
 }
