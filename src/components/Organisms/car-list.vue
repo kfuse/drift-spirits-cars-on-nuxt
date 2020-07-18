@@ -83,8 +83,8 @@
 </li>
 </ul>
 <div class="btns">
-<a href="#" v-on:click="saveParts" class="btnSave">反映</a>
-<span class="saveMessage">{{data.saveMessage}}</span>
+<a href="#" @click="saveParts" class="btnSave">反映</a>
+<span class="saveMessage">{{saveMessage}}</span>
 </div>
 </div>
 </slide-up-down>
@@ -130,7 +130,8 @@ export default {
   },
   data() {
     return {
-      'isPartsOpen': false
+      'isPartsOpen': false,
+      'saveMessage': ''
     }
   },
   computed: {
@@ -168,11 +169,10 @@ export default {
     incrementPlus: function() {
     },
     toggleParts: function(e) {
-      e.preventDefault();
-      var parts;
+      e.preventDefault()
       if (this.isPartsOpen === false) {
-        this.isPartsOpen = true;
-        this.$store.commit(this.data.id + '/setAppliedParts', true);
+        this.isPartsOpen = true
+        this.$store.commit(this.data.id + '/setAppliedParts', true)
         /*
         if (localStorage.getItem("content.driftspirits.car.list." + this.data.stars + "stars.carLevel") !== null) {
           this.carLevel = JSON.parse(localStorage.getItem("content.driftspirits.car.list." + this.data.stars + "stars.carLevel"));
@@ -197,19 +197,37 @@ export default {
           parts: this.data.parts,
           store: this.$store,
           mode: "set"
-        });
+        })
       } else {
-        this.isPartsOpen = false;
-        this.$store.commit(this.data.id + '/setAppliedParts', false);
+        this.isPartsOpen = false
+        this.$store.commit(this.data.id + '/setAppliedParts', false)
         List.resetParts({
           id: this.data.id,
           cars: this.data.cars,
           originalCars: this.data.originalCars,
           store: this.$store
-        });
+        })
       }
     },
-    saveParts: function() {
+    saveParts: function(e) {
+      e.preventDefault()
+      this.saveMessage = "反映しました。"
+      setTimeout(() => {
+        this.saveMessage = ""
+      }, 2000)
+      /*
+      localStorage.setItem("content.driftspirits.car.list." + this.stars + "stars.carLevel", JSON.stringify(this.carLevel));
+      localStorage.setItem("content.driftspirits.car.list." + this.stars + "stars.parts", JSON.stringify(this.parts));
+      */
+      List.updateParts({
+        id: this.data.id,
+        cars: this.data.cars,
+        originalCars: this.data.originalCars,
+        carLevel: this.data.carLevel,
+        parts: this.data.parts,
+        store: this.$store,
+        mode: "set"
+      })
     }
   }
 }

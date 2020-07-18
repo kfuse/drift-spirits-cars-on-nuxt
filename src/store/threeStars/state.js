@@ -66,6 +66,5 @@ export default () => ({
       handling: 0
     }
   },
-  isAppliedParts: false,
-  saveMessage: ""
+  isAppliedParts: false
 })
