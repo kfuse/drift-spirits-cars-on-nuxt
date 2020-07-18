@@ -13,6 +13,7 @@ export default {
     ]
   },
   plugins: [
+    { src: '~/plugins/nuxt-client-init', ssr: false },
     '~/plugins/slide-up-down'
   ]
 }

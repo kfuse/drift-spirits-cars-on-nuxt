@@ -173,22 +173,6 @@ export default {
       if (this.isPartsOpen === false) {
         this.isPartsOpen = true
         this.$store.commit(`${this.id}/setAppliedParts`, true)
-        /*
-        if (localStorage.getItem("content.driftspirits.car.list." + this.data.stars + "stars.carLevel") !== null) {
-          this.carLevel = JSON.parse(localStorage.getItem("content.driftspirits.car.list." + this.data.stars + "stars.carLevel"));
-          parts = JSON.parse(localStorage.getItem("content.driftspirits.car.list." + this.data.stars + "stars.parts"));
-          this.data.parts.engine = parts.engine;
-          this.data.parts.transmission = parts.transmission;
-          this.data.parts.tire = parts.tire;
-          this.data.parts.nitro = parts.nitro;
-          this.data.parts.ecu = parts.ecu;
-          this.data.parts.free1 = parts.free1;
-          this.data.parts.free2 = parts.free2;
-          if (parts.nakama) {
-            this.data.parts.nakama = parts.nakama;
-          }
-        }
-        */
         List.updateParts({
           id: this.data.id,
           cars: this.data.cars,
