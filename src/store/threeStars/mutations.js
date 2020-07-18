@@ -37,7 +37,3 @@ export function setEfficiency(state, {i, efficiency}) {
 export function setPower(state, {i, power}) {
   state.cars[i].power = power
 }
-
-export function setAppliedParts(state, isAppliedParts) {
-  state.isAppliedParts = isAppliedParts
-}

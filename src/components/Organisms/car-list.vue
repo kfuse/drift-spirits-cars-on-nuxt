@@ -131,6 +131,7 @@ export default {
   data() {
     return {
       'isPartsOpen': false,
+      'isAppliedParts': false,
       'saveMessage': ''
     }
   },
@@ -172,7 +173,7 @@ export default {
       e.preventDefault()
       if (this.isPartsOpen === false) {
         this.isPartsOpen = true
-        this.$store.commit(`${this.id}/setAppliedParts`, true)
+        this.isAppliedParts = true
         List.updateParts({
           id: this.data.id,
           cars: this.data.cars,
@@ -184,7 +185,7 @@ export default {
         })
       } else {
         this.isPartsOpen = false
-        this.$store.commit(`${this.id}/setAppliedParts`, false)
+        this.isAppliedParts = false
         List.resetParts({
           id: this.data.id,
           cars: this.data.cars,

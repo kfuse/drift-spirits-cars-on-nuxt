@@ -65,6 +65,5 @@ export default () => ({
       acceleration: 0,
       handling: 0
     }
-  },
-  isAppliedParts: false
+  }
 })
