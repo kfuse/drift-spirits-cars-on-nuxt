@@ -53,26 +53,26 @@ export function setPower(state, {i, power}) {
   state.cars[i].power = power
 }
 
-export function setOriginalSpeed(state, {i, speed}) {
-  state.originalCars[i].speed = speed
+export function setBaseSpeed(state, {i, speed}) {
+  state.baseCars[i].speed = speed
 }
 
-export function setOriginalAcceleration(state, {i, acceleration}) {
-  state.originalCars[i].acceleration = acceleration
+export function setBaseAcceleration(state, {i, acceleration}) {
+  state.baseCars[i].acceleration = acceleration
 }
 
-export function setOriginalHandling(state, {i, handling}) {
-  state.originalCars[i].handling = handling
+export function setBaseHandling(state, {i, handling}) {
+  state.baseCars[i].handling = handling
 }
 
-export function setOriginalNitro(state, {i, nitro}) {
-  state.originalCars[i].nitro = nitro
+export function setBaseNitro(state, {i, nitro}) {
+  state.baseCars[i].nitro = nitro
 }
 
-export function setOriginalEfficiency(state, {i, efficiency}) {
-  state.originalCars[i].efficiency = efficiency
+export function setBaseEfficiency(state, {i, efficiency}) {
+  state.baseCars[i].efficiency = efficiency
 }
 
-export function setOriginalPower(state, {i, power}) {
-  state.originalCars[i].power = power
+export function setBasePower(state, {i, power}) {
+  state.baseCars[i].power = power
 }

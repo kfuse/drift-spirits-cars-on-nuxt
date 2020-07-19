@@ -174,18 +174,18 @@ export default {
       }
       List.updateStarStatus({
         id: this.data.id,
-        originalCars: this.data.originalCars,
+        baseCars: this.data.baseCars,
         stars: this.data.stars,
         originalStars: this.data.originalStars,
         reset: reset,
         store: this.$store
       });
-      this.$store.commit(`${this.id}/setCars`, JSON.parse(JSON.stringify(this.data.originalCars)))
+      this.$store.commit(`${this.id}/setCars`, JSON.parse(JSON.stringify(this.data.baseCars)))
       if (this.isAppliedParts) {
         List.updateParts({
           id: this.data.id,
           cars: this.data.cars,
-          originalCars: this.data.originalCars,
+          baseCars: this.data.baseCars,
           carLevel: this.data.carLevel,
           parts: this.data.parts,
           store: this.$store,
@@ -203,7 +203,7 @@ export default {
         List.updateParts({
           id: this.data.id,
           cars: this.data.cars,
-          originalCars: this.data.originalCars,
+          baseCars: this.data.baseCars,
           carLevel: this.data.carLevel,
           parts: this.data.parts,
           store: this.$store,
@@ -215,7 +215,7 @@ export default {
         List.resetParts({
           id: this.data.id,
           cars: this.data.cars,
-          originalCars: this.data.originalCars,
+          baseCars: this.data.baseCars,
           store: this.$store
         })
       }
@@ -231,7 +231,7 @@ export default {
       List.updateParts({
         id: this.data.id,
         cars: this.data.cars,
-        originalCars: this.data.originalCars,
+        baseCars: this.data.baseCars,
         carLevel: this.data.carLevel,
         parts: this.data.parts,
         store: this.$store,

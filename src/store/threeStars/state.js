@@ -5,7 +5,7 @@ export default () => ({
   id: "threeStars",
   plus: 0,
   cars: threeStarsCars,
-  originalCars: JSON.parse(JSON.stringify(threeStarsCars)),
+  baseCars: JSON.parse(JSON.stringify(threeStarsCars)),
   originalStars: 3,
   carLevel: 1,
   shownNitroless: false,
