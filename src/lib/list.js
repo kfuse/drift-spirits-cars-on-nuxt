@@ -26,14 +26,24 @@ class List {
     }
   }
 
-  static updateStarStatus(cars, star, option) {
+  static updateStarStatus(param) {
     var i,
         power,
+        speed,
+        acceleration,
+        handling,
+        nitro,
+        efficiency,
         specs,
-        reset = option.reset,
-        originalStars = option.originalStars,
-        sevenStarOffset = {},
-        efficiency;
+        powerOffset,
+        efficOffset,
+        id = param.id,
+        originalCars = param.originalCars,
+        stars = param.stars,
+        originalStars = param.originalStars,
+        reset = param.reset,
+        store = param.store,
+        sevenStarOffset = {};
     if (originalStars < 5) {
       sevenStarOffset.power = 40;
       sevenStarOffset.specs = 200;
@@ -43,63 +53,70 @@ class List {
       sevenStarOffset.specs = 300;
       sevenStarOffset.efficiency = 135;
     }
-    switch (star) {
+    switch (stars) {
       case 3:
-        power      = -80  - sevenStarOffset.power;
-        specs      = -400 - sevenStarOffset.specs;
-        efficiency = -255 - sevenStarOffset.efficiency;
+        powerOffset = -80  - sevenStarOffset.power;
+        specs       = -400 - sevenStarOffset.specs;
+        efficOffset = -255 - sevenStarOffset.efficiency;
         break;
       case 4:
         if (!reset) {
-          power      = 20;
-          specs      = 100;
-          efficiency = 75;
+          powerOffset = 20;
+          specs       = 100;
+          efficOffset = 75;
         } else {
-          power      = -60  - sevenStarOffset.power;
-          specs      = -300 - sevenStarOffset.specs;
-          efficiency = -180 - sevenStarOffset.efficiency;
+          powerOffset = -60  - sevenStarOffset.power;
+          specs       = -300 - sevenStarOffset.specs;
+          efficOffset = -180 - sevenStarOffset.efficiency;
         }
         break;
       case 5:
         if (!reset) {
-          power      = 20;
-          specs      = 100;
-          efficiency = 80;
+          powerOffset = 20;
+          specs       = 100;
+          efficOffset = 80;
         } else {
-          power      = -40  - sevenStarOffset.power;
-          specs      = -200 - sevenStarOffset.specs;
-          efficiency = -100 - sevenStarOffset.efficiency;
+          powerOffset = -40  - sevenStarOffset.power;
+          specs       = -200 - sevenStarOffset.specs;
+          efficOffset = -100 - sevenStarOffset.efficiency;
         }
         break;
       case 6:
         if (!reset) {
-          power = 40;
-          specs = 200;
-          efficiency = 100;
+          powerOffset = 40;
+          specs       = 200;
+          efficOffset = 100;
         } else {
-          power      = -sevenStarOffset.power;
-          specs      = -sevenStarOffset.specs;
-          efficiency = -sevenStarOffset.efficiency;
+          powerOffset = -sevenStarOffset.power;
+          specs       = -sevenStarOffset.specs;
+          efficOffset = -sevenStarOffset.efficiency;
         }
         break;
       case 7:
-        power      = sevenStarOffset.power;
-        specs      = sevenStarOffset.specs;
-        efficiency = sevenStarOffset.efficiency;
+        powerOffset = sevenStarOffset.power;
+        specs       = sevenStarOffset.specs;
+        efficOffset = sevenStarOffset.efficiency;
         break;
     }
-    for (i = 0; i < cars.length; i++) {
-      cars[i].power += power;
-      cars[i].speed += specs;
-      cars[i].acceleration += specs;
-      cars[i].handling += specs;
-      cars[i].nitro += specs;
-      if (star === 7 && cars[i].xd) {
-        cars[i].efficiency -= 85;
-      } else if (reset && cars[i].xd) {
-        cars[i].efficiency += 85;
+    for (i = 0; i < originalCars.length; i++) {
+      power = originalCars[i].power + powerOffset;
+      speed = originalCars[i].speed + specs;
+      acceleration = originalCars[i].acceleration + specs;
+      handling = originalCars[i].handling + specs;
+      nitro = originalCars[i].nitro + specs;
+      if (stars === 7 && originalCars[i].xd) {
+        efficOffset -= 85;
+      } else if (reset && originalCars[i].xd) {
+        efficOffset += 85;
       }
-      cars[i].efficiency += efficiency;
+      efficiency = originalCars[i].efficiency + efficOffset;
+
+      store.commit(`${id}/setOriginalSpeed`, {i, speed})
+      store.commit(`${id}/setOriginalAcceleration`, {i, acceleration})
+      store.commit(`${id}/setOriginalHandling`, {i, handling})
+      store.commit(`${id}/setOriginalNitro`, {i, nitro})
+      store.commit(`${id}/setOriginalEfficiency`, {i, efficiency})
+      store.commit(`${id}/setOriginalPower`, {i, power})
     }
   }
 

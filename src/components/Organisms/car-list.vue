@@ -165,7 +165,33 @@ export default {
     }
   },
   methods: {
-    incrementStar: function() {
+    incrementStar: function(e) {
+      e.preventDefault()
+      let reset = false;
+      this.$store.commit(`${this.id}/incrementStars`)
+      if (this.data.stars === 8) {
+        reset = true;
+      }
+      List.updateStarStatus({
+        id: this.data.id,
+        originalCars: this.data.originalCars,
+        stars: this.data.stars,
+        originalStars: this.data.originalStars,
+        reset: reset,
+        store: this.$store
+      });
+      this.$store.commit(`${this.id}/setCars`, JSON.parse(JSON.stringify(this.data.originalCars)))
+      if (this.isAppliedParts) {
+        List.updateParts({
+          id: this.data.id,
+          cars: this.data.cars,
+          originalCars: this.data.originalCars,
+          carLevel: this.data.carLevel,
+          parts: this.data.parts,
+          store: this.$store,
+          mode: "set"
+        });
+      }
     },
     incrementPlus: function() {
     },
