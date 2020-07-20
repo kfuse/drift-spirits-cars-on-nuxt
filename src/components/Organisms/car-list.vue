@@ -167,10 +167,10 @@ export default {
   methods: {
     incrementStar: function(e) {
       e.preventDefault()
-      let reset = false;
+      let reset = false
       this.$store.commit(`${this.id}/incrementStars`)
       if (this.data.stars === 8) {
-        reset = true;
+        reset = true
       }
       List.updateStarStatus({
         id: this.data.id,
@@ -179,7 +179,7 @@ export default {
         originalStars: this.data.originalStars,
         reset: reset,
         store: this.$store
-      });
+      })
       this.$store.commit(`${this.id}/setCars`, JSON.parse(JSON.stringify(this.data.baseCars)))
       if (this.isAppliedParts) {
         List.updateParts({
@@ -190,10 +190,25 @@ export default {
           parts: this.data.parts,
           store: this.$store,
           mode: "set"
-        });
+        })
       }
     },
-    incrementPlus: function() {
+    incrementPlus: function(e) {
+      e.preventDefault()
+      this.$store.commit(`${this.id}/incrementPlus`)
+      List.updatePlusStatus(this.data.id, this.data.baseCars, this.data.plus, this.$store)
+      this.$store.commit(`${this.id}/setCars`, JSON.parse(JSON.stringify(this.data.baseCars)))
+      if (this.isAppliedParts) {
+        List.updateParts({
+          id: this.data.id,
+          cars: this.data.cars,
+          baseCars: this.data.baseCars,
+          carLevel: this.data.carLevel,
+          parts: this.data.parts,
+          store: this.$store,
+          mode: "set"
+        })
+      }
     },
     toggleParts: function(e) {
       e.preventDefault()

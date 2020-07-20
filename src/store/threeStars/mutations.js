@@ -2,15 +2,22 @@ export function setStars(state, stars) {
   state.stars = stars
 }
 
-export function setCars(state, cars) {
-  state.cars = cars
+export function incrementStars(state) {
+  state.stars++
+  if (state.stars === 8) {
+    state.stars = state.originalStars
+  }
 }
 
-export function incrementStars(state) {
-  let stars = state.stars
-  stars++
-  if (stars === 8) stars = state.originalStars
-  state.stars = stars
+export function incrementPlus(state) {
+  state.plus++
+  if (state.plus === 3) {
+    state.plus = 0
+  }
+}
+
+export function setCars(state, cars) {
+  state.cars = cars
 }
 
 export function setCarLevel(state, carLevel) {

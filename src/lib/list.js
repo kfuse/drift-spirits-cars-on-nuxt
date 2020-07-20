@@ -1,28 +1,39 @@
 class List {
-  static updatePlusStatus(cars, plus) {
+  static updatePlusStatus(id, cars, plus, store) {
     var i,
+        powerOffset,
         power,
+        speed,
+        acceleration,
+        handling,
+        nitro,
         specs;
     switch (plus) {
       case 0:
-        power = -12;
-        specs = -60;
+        powerOffset = -12;
+        specs       = -60;
         break;
       case 1:
-        power = 6;
-        specs = 30;
+        powerOffset = 6;
+        specs       = 30;
         break;
       case 2:
-        power = 6;
-        specs = 30;
+        powerOffset = 6;
+        specs       = 30;
         break;
     }
     for (i = 0; i < cars.length; i++) {
-      cars[i].power += power;
-      cars[i].speed += specs;
-      cars[i].acceleration += specs;
-      cars[i].handling += specs;
-      cars[i].nitro += specs;
+      power = cars[i].power + powerOffset;
+      speed = cars[i].speed + specs;
+      acceleration = cars[i].acceleration + specs;
+      handling = cars[i].handling + specs;
+      nitro = cars[i].nitro + specs;
+
+      store.commit(`${id}/setBasePower`, {i, power})
+      store.commit(`${id}/setBaseSpeed`, {i, speed})
+      store.commit(`${id}/setBaseAcceleration`, {i, acceleration})
+      store.commit(`${id}/setBaseHandling`, {i, handling})
+      store.commit(`${id}/setBaseNitro`, {i, nitro})
     }
   }
 
