@@ -1,8 +1,8 @@
-import threeStarsCars from '~/carlist'
+import threeStarsCars from './carlist'
 
 export default () => ({
-  stars: 3,
   id: "threeStars",
+  stars: 3,
   plus: 0,
   cars: threeStarsCars,
   baseCars: JSON.parse(JSON.stringify(threeStarsCars)),
