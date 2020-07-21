@@ -36,6 +36,38 @@ export function setEngineLevel(state, level) {
   state.parts.engine.level = level
 }
 
+export function setTransmissionSize(state, size) {
+  state.parts.transmission.size = size
+}
+
+export function setTransmissionLevel(state, level) {
+  state.parts.transmission.level = level
+}
+
+export function setTireSize(state, size) {
+  state.parts.tire.size = size
+}
+
+export function setTireLevel(state, level) {
+  state.parts.tire.level = level
+}
+
+export function setNitroSize(state, size) {
+  state.parts.nitro.size = size
+}
+
+export function setNitroLevel(state, level) {
+  state.parts.nitro.level = level
+}
+
+export function setEcuSize(state, size) {
+  state.parts.ecu.size = size
+}
+
+export function setEcuLevel(state, level) {
+  state.parts.ecu.level = level
+}
+
 export function setSpeed(state, {i, speed}) {
   state.cars[i].speed = speed
 }

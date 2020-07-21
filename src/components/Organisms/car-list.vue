@@ -28,29 +28,29 @@
 <li>
 <dl class="clearfix">
 <dt>トランスミッション</dt>
-<dd>サイズ: <input type="tel" v-model="data.parts.transmission.size" class="iptParts"></dd>
-<dd>レベル: <input type="tel" v-model="data.parts.transmission.level" class="iptParts"></dd>
+<dd>サイズ: <input type="tel" v-model="transmissionSize" class="iptParts"></dd>
+<dd>レベル: <input type="tel" v-model="transmissionLevel" class="iptParts"></dd>
 </dl>
 </li>
 <li>
 <dl class="clearfix">
 <dt>タイヤ</dt>
-<dd>サイズ: <input type="tel" v-model="data.parts.tire.size" class="iptParts"></dd>
-<dd>レベル: <input type="tel" v-model="data.parts.tire.level" class="iptParts"></dd>
+<dd>サイズ: <input type="tel" v-model="tireSize" class="iptParts"></dd>
+<dd>レベル: <input type="tel" v-model="tireLevel" class="iptParts"></dd>
 </dl>
 </li>
 <li>
 <dl class="clearfix">
 <dt>ニトロ</dt>
-<dd>サイズ: <input type="tel" v-model="data.parts.nitro.size" class="iptParts"></dd>
-<dd>レベル: <input type="tel" v-model="data.parts.nitro.level" class="iptParts"></dd>
+<dd>サイズ: <input type="tel" v-model="nitroSize" class="iptParts"></dd>
+<dd>レベル: <input type="tel" v-model="nitroLevel" class="iptParts"></dd>
 </dl>
 </li>
 <li>
 <dl class="clearfix">
 <dt>ECU</dt>
-<dd>サイズ: <input type="tel" v-model="data.parts.ecu.size" class="iptParts"></dd>
-<dd>レベル: <input type="tel" v-model="data.parts.ecu.level" class="iptParts"></dd>
+<dd>サイズ: <input type="tel" v-model="ecuSize" class="iptParts"></dd>
+<dd>レベル: <input type="tel" v-model="ecuLevel" class="iptParts"></dd>
 </dl>
 </li>
 <li>
@@ -161,6 +161,70 @@ export default {
       },
       set(value) {
         this.$store.commit(`${this.id}/setEngineLevel`, value)
+      }
+    },
+    transmissionSize: {
+      get() {
+        return this.$store.getters[`${this.id}/getTransmissionSize`]
+      },
+      set(value) {
+        this.$store.commit(`${this.id}/setTransmissionSize`, value)
+      }
+    },
+    transmissionLevel: {
+      get() {
+        return this.$store.getters[`${this.id}/getTransmissionLevel`]
+      },
+      set(value) {
+        this.$store.commit(`${this.id}/setTransmissionLevel`, value)
+      }
+    },
+    tireSize: {
+      get() {
+        return this.$store.getters[`${this.id}/getTireSize`]
+      },
+      set(value) {
+        this.$store.commit(`${this.id}/setTireSize`, value)
+      }
+    },
+    tireLevel: {
+      get() {
+        return this.$store.getters[`${this.id}/getTireLevel`]
+      },
+      set(value) {
+        this.$store.commit(`${this.id}/setTireLevel`, value)
+      }
+    },
+    nitroSize: {
+      get() {
+        return this.$store.getters[`${this.id}/getNitroSize`]
+      },
+      set(value) {
+        this.$store.commit(`${this.id}/setNitroSize`, value)
+      }
+    },
+    nitroLevel: {
+      get() {
+        return this.$store.getters[`${this.id}/getNitroLevel`]
+      },
+      set(value) {
+        this.$store.commit(`${this.id}/setNitroLevel`, value)
+      }
+    },
+    ecuSize: {
+      get() {
+        return this.$store.getters[`${this.id}/getEcuSize`]
+      },
+      set(value) {
+        this.$store.commit(`${this.id}/setEcuSize`, value)
+      }
+    },
+    ecuLevel: {
+      get() {
+        return this.$store.getters[`${this.id}/getEcuLevel`]
+      },
+      set(value) {
+        this.$store.commit(`${this.id}/setEcuLevel`, value)
       }
     }
   },
