@@ -68,6 +68,30 @@ export function setEcuLevel(state, level) {
   state.parts.ecu.level = level
 }
 
+export function setFree1Selected(state, selected) {
+  state.parts.free1.selected = selected
+}
+
+export function setFree1Size(state, size) {
+  state.parts.free1.size = size
+}
+
+export function setFree1Level(state, level) {
+  state.parts.free1.level = level
+}
+
+export function setFree2Selected(state, selected) {
+  state.parts.free2.selected = selected
+}
+
+export function setFree2Size(state, size) {
+  state.parts.free2.size = size
+}
+
+export function setFree2Level(state, level) {
+  state.parts.free2.level = level
+}
+
 export function setSpeed(state, {i, speed}) {
   state.cars[i].speed = speed
 }

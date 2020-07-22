@@ -56,21 +56,21 @@
 <li>
 <dl class="clearfix">
 <dt>フリー</dt>
-<dd class="freeType">種類: <select v-model="data.parts.free1.selected">
+<dd class="freeType">種類: <select v-model="free1Selected">
 <option v-for="option in data.parts.free1.type" :value="option.value">{{option.text}}</option>
 </select></dd>
-<dd>サイズ: <input type="tel" v-model="data.parts.free1.size" class="iptParts"></dd>
-<dd>レベル: <input type="tel" v-model="data.parts.free1.level" class="iptParts"></dd>
+<dd>サイズ: <input type="tel" v-model="free1Size" class="iptParts"></dd>
+<dd>レベル: <input type="tel" v-model="free1Level" class="iptParts"></dd>
 </dl>
 </li>
 <li>
 <dl class="clearfix">
 <dt>フリー</dt>
-<dd class="freeType">種類: <select v-model="data.parts.free2.selected">
+<dd class="freeType">種類: <select v-model="free2Selected">
 <option v-for="option in data.parts.free2.type" v-bind:value="option.value">{{option.text}}</option>
 </select></dd>
-<dd>サイズ: <input type="tel" v-model="data.parts.free2.size" class="iptParts"></dd>
-<dd>レベル: <input type="tel" v-model="data.parts.free2.level" class="iptParts"></dd>
+<dd>サイズ: <input type="tel" v-model="free2Size" class="iptParts"></dd>
+<dd>レベル: <input type="tel" v-model="free2Level" class="iptParts"></dd>
 </dl>
 </li>
 <li>
@@ -225,6 +225,54 @@ export default {
       },
       set(value) {
         this.$store.commit(`${this.id}/setEcuLevel`, value)
+      }
+    },
+    free1Selected: {
+      get() {
+        return this.$store.getters[`${this.id}/getFree1Selected`]
+      },
+      set(value) {
+        this.$store.commit(`${this.id}/setFree1Selected`, value)
+      }
+    },
+    free1Size: {
+      get() {
+        return this.$store.getters[`${this.id}/getFree1Size`]
+      },
+      set(value) {
+        this.$store.commit(`${this.id}/setFree1Size`, value)
+      }
+    },
+    free1Level: {
+      get() {
+        return this.$store.getters[`${this.id}/getFree1Level`]
+      },
+      set(value) {
+        this.$store.commit(`${this.id}/setFree1Level`, value)
+      }
+    },
+    free2Selected: {
+      get() {
+        return this.$store.getters[`${this.id}/getFree2Selected`]
+      },
+      set(value) {
+        this.$store.commit(`${this.id}/setFree2Selected`, value)
+      }
+    },
+    free2Size: {
+      get() {
+        return this.$store.getters[`${this.id}/getFree2Size`]
+      },
+      set(value) {
+        this.$store.commit(`${this.id}/setFree2Size`, value)
+      }
+    },
+    free2Level: {
+      get() {
+        return this.$store.getters[`${this.id}/getFree2Level`]
+      },
+      set(value) {
+        this.$store.commit(`${this.id}/setFree2Level`, value)
       }
     }
   },

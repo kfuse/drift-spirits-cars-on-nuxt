@@ -31,5 +31,23 @@ export default {
   },
   getEcuLevel(state) {
     return state.parts.ecu.level
+  },
+  getFree1Selected(state) {
+    return state.parts.free1.selected
+  },
+  getFree1Size(state) {
+    return state.parts.free1.size
+  },
+  getFree1Level(state) {
+    return state.parts.free1.level
+  },
+  getFree2Selected(state) {
+    return state.parts.free2.selected
+  },
+  getFree2Size(state) {
+    return state.parts.free2.size
+  },
+  getFree2Level(state) {
+    return state.parts.free2.level
   }
 }
