@@ -49,5 +49,14 @@ export default {
   },
   getFree2Level(state) {
     return state.parts.free2.level
+  },
+  getNakamaSpeed(state) {
+    return state.parts.nakama.speed
+  },
+  getNakamaAcceleration(state) {
+    return state.parts.nakama.acceleration
+  },
+  getNakamaHandling(state) {
+    return state.parts.nakama.handling
   }
 }

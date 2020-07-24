@@ -76,9 +76,9 @@
 <li>
 <dl class="clearfix">
 <dt>仲間</dt>
-<dd>高速: <input type="tel" v-model="data.parts.nakama.speed" class="iptParts"></dd>
-<dd>加速: <input type="tel" v-model="data.parts.nakama.acceleration" class="iptParts"></dd>
-<dd>ハンドリング: <input type="tel" v-model="data.parts.nakama.handling" class="iptParts"></dd>
+<dd>高速: <input type="tel" v-model="nakamaSpeed" class="iptParts"></dd>
+<dd>加速: <input type="tel" v-model="nakamaAcceleration" class="iptParts"></dd>
+<dd>ハンドリング: <input type="tel" v-model="nakamaHandling" class="iptParts"></dd>
 </dl>
 </li>
 </ul>
@@ -273,6 +273,30 @@ export default {
       },
       set(value) {
         this.$store.commit(`${this.id}/setFree2Level`, value)
+      }
+    },
+    nakamaSpeed: {
+      get() {
+        return this.$store.getters[`${this.id}/getNakamaSpeed`]
+      },
+      set(value) {
+        this.$store.commit(`${this.id}/setNakamaSpeed`, value)
+      }
+    },
+    nakamaAcceleration: {
+      get() {
+        return this.$store.getters[`${this.id}/getNakamaAcceleration`]
+      },
+      set(value) {
+        this.$store.commit(`${this.id}/setNakamaAcceleration`, value)
+      }
+    },
+    nakamaHandling: {
+      get() {
+        return this.$store.getters[`${this.id}/getNakamaHandling`]
+      },
+      set(value) {
+        this.$store.commit(`${this.id}/setNakamaHandling`, value)
       }
     }
   },

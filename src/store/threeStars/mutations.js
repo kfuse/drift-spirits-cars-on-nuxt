@@ -92,6 +92,18 @@ export function setFree2Level(state, level) {
   state.parts.free2.level = level
 }
 
+export function setNakamaSpeed(state, speed) {
+  state.parts.nakama.speed = speed
+}
+
+export function setNakamaAcceleration(state, acceleration) {
+  state.parts.nakama.acceleration = acceleration
+}
+
+export function setNakamaHandling(state, handling) {
+  state.parts.nakama.handling = handling
+}
+
 export function setSpeed(state, {i, speed}) {
   state.cars[i].speed = speed
 }
