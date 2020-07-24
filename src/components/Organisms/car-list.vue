@@ -28,63 +28,63 @@
 <li>
 <dl class="clearfix">
 <dt>トランスミッション</dt>
-<dd>サイズ: <input type="tel" v-model="data.parts.transmission.size" class="iptParts"></dd>
-<dd>レベル: <input type="tel" v-model="data.parts.transmission.level" class="iptParts"></dd>
+<dd>サイズ: <input type="tel" v-model="transmissionSize" class="iptParts"></dd>
+<dd>レベル: <input type="tel" v-model="transmissionLevel" class="iptParts"></dd>
 </dl>
 </li>
 <li>
 <dl class="clearfix">
 <dt>タイヤ</dt>
-<dd>サイズ: <input type="tel" v-model="data.parts.tire.size" class="iptParts"></dd>
-<dd>レベル: <input type="tel" v-model="data.parts.tire.level" class="iptParts"></dd>
+<dd>サイズ: <input type="tel" v-model="tireSize" class="iptParts"></dd>
+<dd>レベル: <input type="tel" v-model="tireLevel" class="iptParts"></dd>
 </dl>
 </li>
 <li>
 <dl class="clearfix">
 <dt>ニトロ</dt>
-<dd>サイズ: <input type="tel" v-model="data.parts.nitro.size" class="iptParts"></dd>
-<dd>レベル: <input type="tel" v-model="data.parts.nitro.level" class="iptParts"></dd>
+<dd>サイズ: <input type="tel" v-model="nitroSize" class="iptParts"></dd>
+<dd>レベル: <input type="tel" v-model="nitroLevel" class="iptParts"></dd>
 </dl>
 </li>
 <li>
 <dl class="clearfix">
 <dt>ECU</dt>
-<dd>サイズ: <input type="tel" v-model="data.parts.ecu.size" class="iptParts"></dd>
-<dd>レベル: <input type="tel" v-model="data.parts.ecu.level" class="iptParts"></dd>
+<dd>サイズ: <input type="tel" v-model="ecuSize" class="iptParts"></dd>
+<dd>レベル: <input type="tel" v-model="ecuLevel" class="iptParts"></dd>
 </dl>
 </li>
 <li>
 <dl class="clearfix">
 <dt>フリー</dt>
-<dd class="freeType">種類: <select v-model="data.parts.free1.selected">
+<dd class="freeType">種類: <select v-model="free1Selected">
 <option v-for="option in data.parts.free1.type" :value="option.value">{{option.text}}</option>
 </select></dd>
-<dd>サイズ: <input type="tel" v-model="data.parts.free1.size" class="iptParts"></dd>
-<dd>レベル: <input type="tel" v-model="data.parts.free1.level" class="iptParts"></dd>
+<dd>サイズ: <input type="tel" v-model="free1Size" class="iptParts"></dd>
+<dd>レベル: <input type="tel" v-model="free1Level" class="iptParts"></dd>
 </dl>
 </li>
 <li>
 <dl class="clearfix">
 <dt>フリー</dt>
-<dd class="freeType">種類: <select v-model="data.parts.free2.selected">
+<dd class="freeType">種類: <select v-model="free2Selected">
 <option v-for="option in data.parts.free2.type" v-bind:value="option.value">{{option.text}}</option>
 </select></dd>
-<dd>サイズ: <input type="tel" v-model="data.parts.free2.size" class="iptParts"></dd>
-<dd>レベル: <input type="tel" v-model="data.parts.free2.level" class="iptParts"></dd>
+<dd>サイズ: <input type="tel" v-model="free2Size" class="iptParts"></dd>
+<dd>レベル: <input type="tel" v-model="free2Level" class="iptParts"></dd>
 </dl>
 </li>
 <li>
 <dl class="clearfix">
 <dt>仲間</dt>
-<dd>高速: <input type="tel" v-model="data.parts.nakama.speed" class="iptParts"></dd>
-<dd>加速: <input type="tel" v-model="data.parts.nakama.acceleration" class="iptParts"></dd>
-<dd>ハンドリング: <input type="tel" v-model="data.parts.nakama.handling" class="iptParts"></dd>
+<dd>高速: <input type="tel" v-model="nakamaSpeed" class="iptParts"></dd>
+<dd>加速: <input type="tel" v-model="nakamaAcceleration" class="iptParts"></dd>
+<dd>ハンドリング: <input type="tel" v-model="nakamaHandling" class="iptParts"></dd>
 </dl>
 </li>
 </ul>
 <div class="btns">
-<a href="#" v-on:click="saveParts" class="btnSave">反映</a>
-<span class="saveMessage">{{data.saveMessage}}</span>
+<a href="#" @click="saveParts" class="btnSave">反映</a>
+<span class="saveMessage">{{saveMessage}}</span>
 </div>
 </div>
 </slide-up-down>
@@ -130,7 +130,9 @@ export default {
   },
   data() {
     return {
-      'isPartsOpen': false
+      'isPartsOpen': false,
+      'isAppliedParts': false,
+      'saveMessage': ''
     }
   },
   computed: {
@@ -160,56 +162,232 @@ export default {
       set(value) {
         this.$store.commit(`${this.id}/setEngineLevel`, value)
       }
+    },
+    transmissionSize: {
+      get() {
+        return this.$store.getters[`${this.id}/getTransmissionSize`]
+      },
+      set(value) {
+        this.$store.commit(`${this.id}/setTransmissionSize`, value)
+      }
+    },
+    transmissionLevel: {
+      get() {
+        return this.$store.getters[`${this.id}/getTransmissionLevel`]
+      },
+      set(value) {
+        this.$store.commit(`${this.id}/setTransmissionLevel`, value)
+      }
+    },
+    tireSize: {
+      get() {
+        return this.$store.getters[`${this.id}/getTireSize`]
+      },
+      set(value) {
+        this.$store.commit(`${this.id}/setTireSize`, value)
+      }
+    },
+    tireLevel: {
+      get() {
+        return this.$store.getters[`${this.id}/getTireLevel`]
+      },
+      set(value) {
+        this.$store.commit(`${this.id}/setTireLevel`, value)
+      }
+    },
+    nitroSize: {
+      get() {
+        return this.$store.getters[`${this.id}/getNitroSize`]
+      },
+      set(value) {
+        this.$store.commit(`${this.id}/setNitroSize`, value)
+      }
+    },
+    nitroLevel: {
+      get() {
+        return this.$store.getters[`${this.id}/getNitroLevel`]
+      },
+      set(value) {
+        this.$store.commit(`${this.id}/setNitroLevel`, value)
+      }
+    },
+    ecuSize: {
+      get() {
+        return this.$store.getters[`${this.id}/getEcuSize`]
+      },
+      set(value) {
+        this.$store.commit(`${this.id}/setEcuSize`, value)
+      }
+    },
+    ecuLevel: {
+      get() {
+        return this.$store.getters[`${this.id}/getEcuLevel`]
+      },
+      set(value) {
+        this.$store.commit(`${this.id}/setEcuLevel`, value)
+      }
+    },
+    free1Selected: {
+      get() {
+        return this.$store.getters[`${this.id}/getFree1Selected`]
+      },
+      set(value) {
+        this.$store.commit(`${this.id}/setFree1Selected`, value)
+      }
+    },
+    free1Size: {
+      get() {
+        return this.$store.getters[`${this.id}/getFree1Size`]
+      },
+      set(value) {
+        this.$store.commit(`${this.id}/setFree1Size`, value)
+      }
+    },
+    free1Level: {
+      get() {
+        return this.$store.getters[`${this.id}/getFree1Level`]
+      },
+      set(value) {
+        this.$store.commit(`${this.id}/setFree1Level`, value)
+      }
+    },
+    free2Selected: {
+      get() {
+        return this.$store.getters[`${this.id}/getFree2Selected`]
+      },
+      set(value) {
+        this.$store.commit(`${this.id}/setFree2Selected`, value)
+      }
+    },
+    free2Size: {
+      get() {
+        return this.$store.getters[`${this.id}/getFree2Size`]
+      },
+      set(value) {
+        this.$store.commit(`${this.id}/setFree2Size`, value)
+      }
+    },
+    free2Level: {
+      get() {
+        return this.$store.getters[`${this.id}/getFree2Level`]
+      },
+      set(value) {
+        this.$store.commit(`${this.id}/setFree2Level`, value)
+      }
+    },
+    nakamaSpeed: {
+      get() {
+        return this.$store.getters[`${this.id}/getNakamaSpeed`]
+      },
+      set(value) {
+        this.$store.commit(`${this.id}/setNakamaSpeed`, value)
+      }
+    },
+    nakamaAcceleration: {
+      get() {
+        return this.$store.getters[`${this.id}/getNakamaAcceleration`]
+      },
+      set(value) {
+        this.$store.commit(`${this.id}/setNakamaAcceleration`, value)
+      }
+    },
+    nakamaHandling: {
+      get() {
+        return this.$store.getters[`${this.id}/getNakamaHandling`]
+      },
+      set(value) {
+        this.$store.commit(`${this.id}/setNakamaHandling`, value)
+      }
     }
   },
   methods: {
-    incrementStar: function() {
-    },
-    incrementPlus: function() {
-    },
-    toggleParts: function(e) {
-      e.preventDefault();
-      var parts;
-      if (this.isPartsOpen === false) {
-        this.isPartsOpen = true;
-        this.$store.commit(this.data.id + '/setAppliedParts', true);
-        /*
-        if (localStorage.getItem("content.driftspirits.car.list." + this.data.stars + "stars.carLevel") !== null) {
-          this.carLevel = JSON.parse(localStorage.getItem("content.driftspirits.car.list." + this.data.stars + "stars.carLevel"));
-          parts = JSON.parse(localStorage.getItem("content.driftspirits.car.list." + this.data.stars + "stars.parts"));
-          this.data.parts.engine = parts.engine;
-          this.data.parts.transmission = parts.transmission;
-          this.data.parts.tire = parts.tire;
-          this.data.parts.nitro = parts.nitro;
-          this.data.parts.ecu = parts.ecu;
-          this.data.parts.free1 = parts.free1;
-          this.data.parts.free2 = parts.free2;
-          if (parts.nakama) {
-            this.data.parts.nakama = parts.nakama;
-          }
-        }
-        */
+    incrementStar: function(e) {
+      e.preventDefault()
+      let reset = false
+      this.$store.commit(`${this.id}/incrementStars`)
+      if (this.data.stars === 8) {
+        reset = true
+      }
+      List.updateStarStatus({
+        id: this.data.id,
+        baseCars: this.data.baseCars,
+        stars: this.data.stars,
+        originalStars: this.data.originalStars,
+        reset: reset,
+        store: this.$store
+      })
+      this.$store.commit(`${this.id}/setCars`, JSON.parse(JSON.stringify(this.data.baseCars)))
+      if (this.isAppliedParts) {
         List.updateParts({
           id: this.data.id,
           cars: this.data.cars,
-          originalCars: this.data.originalCars,
+          baseCars: this.data.baseCars,
           carLevel: this.data.carLevel,
           parts: this.data.parts,
           store: this.$store,
           mode: "set"
-        });
+        })
+      }
+    },
+    incrementPlus: function(e) {
+      e.preventDefault()
+      this.$store.commit(`${this.id}/incrementPlus`)
+      List.updatePlusStatus(this.data.id, this.data.baseCars, this.data.plus, this.$store)
+      this.$store.commit(`${this.id}/setCars`, JSON.parse(JSON.stringify(this.data.baseCars)))
+      if (this.isAppliedParts) {
+        List.updateParts({
+          id: this.data.id,
+          cars: this.data.cars,
+          baseCars: this.data.baseCars,
+          carLevel: this.data.carLevel,
+          parts: this.data.parts,
+          store: this.$store,
+          mode: "set"
+        })
+      }
+    },
+    toggleParts: function(e) {
+      e.preventDefault()
+      if (this.isPartsOpen === false) {
+        this.isPartsOpen = true
+        this.isAppliedParts = true
+        List.updateParts({
+          id: this.data.id,
+          cars: this.data.cars,
+          baseCars: this.data.baseCars,
+          carLevel: this.data.carLevel,
+          parts: this.data.parts,
+          store: this.$store,
+          mode: "set"
+        })
       } else {
-        this.isPartsOpen = false;
-        this.$store.commit(this.data.id + '/setAppliedParts', false);
+        this.isPartsOpen = false
+        this.isAppliedParts = false
         List.resetParts({
           id: this.data.id,
           cars: this.data.cars,
-          originalCars: this.data.originalCars,
+          baseCars: this.data.baseCars,
           store: this.$store
-        });
+        })
       }
     },
-    saveParts: function() {
+    saveParts: function(e) {
+      e.preventDefault()
+      this.saveMessage = "反映しました。"
+      setTimeout(() => {
+        this.saveMessage = ""
+      }, 2000)
+      this.$store.dispatch(`${this.id}/setCarLevel`, this.data.carLevel)
+      this.$store.dispatch(`${this.id}/setParts`, this.data.parts)
+      List.updateParts({
+        id: this.data.id,
+        cars: this.data.cars,
+        baseCars: this.data.baseCars,
+        carLevel: this.data.carLevel,
+        parts: this.data.parts,
+        store: this.$store,
+        mode: "set"
+      })
     }
   }
 }
