@@ -1,39 +1,60 @@
 class List {
-  static updatePlusStatus(cars, plus) {
+  static updatePlusStatus(id, cars, plus, store) {
     var i,
+        powerOffset,
         power,
+        speed,
+        acceleration,
+        handling,
+        nitro,
         specs;
     switch (plus) {
       case 0:
-        power = -12;
-        specs = -60;
+        powerOffset = -12;
+        specs       = -60;
         break;
       case 1:
-        power = 6;
-        specs = 30;
+        powerOffset = 6;
+        specs       = 30;
         break;
       case 2:
-        power = 6;
-        specs = 30;
+        powerOffset = 6;
+        specs       = 30;
         break;
     }
     for (i = 0; i < cars.length; i++) {
-      cars[i].power += power;
-      cars[i].speed += specs;
-      cars[i].acceleration += specs;
-      cars[i].handling += specs;
-      cars[i].nitro += specs;
+      power = cars[i].power + powerOffset;
+      speed = cars[i].speed + specs;
+      acceleration = cars[i].acceleration + specs;
+      handling = cars[i].handling + specs;
+      nitro = cars[i].nitro + specs;
+
+      store.commit(`${id}/setBasePower`, {i, power})
+      store.commit(`${id}/setBaseSpeed`, {i, speed})
+      store.commit(`${id}/setBaseAcceleration`, {i, acceleration})
+      store.commit(`${id}/setBaseHandling`, {i, handling})
+      store.commit(`${id}/setBaseNitro`, {i, nitro})
     }
   }
 
-  static updateStarStatus(cars, star, option) {
+  static updateStarStatus(param) {
     var i,
         power,
+        speed,
+        acceleration,
+        handling,
+        nitro,
+        efficiency,
         specs,
-        reset = option.reset,
-        originalStars = option.originalStars,
-        sevenStarOffset = {},
-        efficiency;
+        powerOffset,
+        efficOffset,
+        id = param.id,
+        baseCars = param.baseCars,
+        stars = param.stars,
+        originalStars = param.originalStars,
+        reset = param.reset,
+        store = param.store,
+        sevenStarOffset = {};
     if (originalStars < 5) {
       sevenStarOffset.power = 40;
       sevenStarOffset.specs = 200;
@@ -43,69 +64,76 @@ class List {
       sevenStarOffset.specs = 300;
       sevenStarOffset.efficiency = 135;
     }
-    switch (star) {
+    switch (stars) {
       case 3:
-        power      = -80  - sevenStarOffset.power;
-        specs      = -400 - sevenStarOffset.specs;
-        efficiency = -255 - sevenStarOffset.efficiency;
+        powerOffset = -80  - sevenStarOffset.power;
+        specs       = -400 - sevenStarOffset.specs;
+        efficOffset = -255 - sevenStarOffset.efficiency;
         break;
       case 4:
         if (!reset) {
-          power      = 20;
-          specs      = 100;
-          efficiency = 75;
+          powerOffset = 20;
+          specs       = 100;
+          efficOffset = 75;
         } else {
-          power      = -60  - sevenStarOffset.power;
-          specs      = -300 - sevenStarOffset.specs;
-          efficiency = -180 - sevenStarOffset.efficiency;
+          powerOffset = -60  - sevenStarOffset.power;
+          specs       = -300 - sevenStarOffset.specs;
+          efficOffset = -180 - sevenStarOffset.efficiency;
         }
         break;
       case 5:
         if (!reset) {
-          power      = 20;
-          specs      = 100;
-          efficiency = 80;
+          powerOffset = 20;
+          specs       = 100;
+          efficOffset = 80;
         } else {
-          power      = -40  - sevenStarOffset.power;
-          specs      = -200 - sevenStarOffset.specs;
-          efficiency = -100 - sevenStarOffset.efficiency;
+          powerOffset = -40  - sevenStarOffset.power;
+          specs       = -200 - sevenStarOffset.specs;
+          efficOffset = -100 - sevenStarOffset.efficiency;
         }
         break;
       case 6:
         if (!reset) {
-          power = 40;
-          specs = 200;
-          efficiency = 100;
+          powerOffset = 40;
+          specs       = 200;
+          efficOffset = 100;
         } else {
-          power      = -sevenStarOffset.power;
-          specs      = -sevenStarOffset.specs;
-          efficiency = -sevenStarOffset.efficiency;
+          powerOffset = -sevenStarOffset.power;
+          specs       = -sevenStarOffset.specs;
+          efficOffset = -sevenStarOffset.efficiency;
         }
         break;
       case 7:
-        power      = sevenStarOffset.power;
-        specs      = sevenStarOffset.specs;
-        efficiency = sevenStarOffset.efficiency;
+        powerOffset = sevenStarOffset.power;
+        specs       = sevenStarOffset.specs;
+        efficOffset = sevenStarOffset.efficiency;
         break;
     }
-    for (i = 0; i < cars.length; i++) {
-      cars[i].power += power;
-      cars[i].speed += specs;
-      cars[i].acceleration += specs;
-      cars[i].handling += specs;
-      cars[i].nitro += specs;
-      if (star === 7 && cars[i].xd) {
-        cars[i].efficiency -= 85;
-      } else if (reset && cars[i].xd) {
-        cars[i].efficiency += 85;
+    for (i = 0; i < baseCars.length; i++) {
+      power = baseCars[i].power + powerOffset;
+      speed = baseCars[i].speed + specs;
+      acceleration = baseCars[i].acceleration + specs;
+      handling = baseCars[i].handling + specs;
+      nitro = baseCars[i].nitro + specs;
+      if (stars === 7 && baseCars[i].xd) {
+        efficOffset -= 85;
+      } else if (reset && baseCars[i].xd) {
+        efficOffset += 85;
       }
-      cars[i].efficiency += efficiency;
+      efficiency = baseCars[i].efficiency + efficOffset;
+
+      store.commit(`${id}/setBaseSpeed`, {i, speed})
+      store.commit(`${id}/setBaseAcceleration`, {i, acceleration})
+      store.commit(`${id}/setBaseHandling`, {i, handling})
+      store.commit(`${id}/setBaseNitro`, {i, nitro})
+      store.commit(`${id}/setBaseEfficiency`, {i, efficiency})
+      store.commit(`${id}/setBasePower`, {i, power})
     }
   }
 
   static updateParts(param) {
     let cars = param.cars,
-        originalCars = param.originalCars,
+        baseCars = param.baseCars,
         carLevel = param.carLevel,
         parts = param.parts,
         id = param.id,
@@ -175,18 +203,18 @@ class List {
     }
     for (i = 0; i < cars.length; i++) {
       if (mode === "set") {
-        speed = originalCars[i].speed + specs["engine"] + free["muffler"] + free["turbine"] + nakama["speed"]
-        acceleration = originalCars[i].acceleration + specs["transmission"] + free["clutch"] + free["shaft"] + nakama["acceleration"];
-        handling = originalCars[i].handling + specs["tire"] + free["towerbar"] + free["suspension"] + nakama["handling"];
-        nitro = originalCars[i].nitro + specs["nitro"];
-        efficiency = originalCars[i].efficiency - specs["ecu"];
+        speed = baseCars[i].speed + specs["engine"] + free["muffler"] + free["turbine"] + nakama["speed"]
+        acceleration = baseCars[i].acceleration + specs["transmission"] + free["clutch"] + free["shaft"] + nakama["acceleration"];
+        handling = baseCars[i].handling + specs["tire"] + free["towerbar"] + free["suspension"] + nakama["handling"];
+        nitro = baseCars[i].nitro + specs["nitro"];
+        efficiency = baseCars[i].efficiency - specs["ecu"];
         power = Math.floor((speed + acceleration + handling + nitro) / 20);
       } else {
-        speed = originalCars[i].speed - specs["engine"] - free["muffler"] - free["turbine"] - nakama["speed"]
-        acceleration = originalCars[i].acceleration - specs["transmission"] - free["clutch"] - free["shaft"] - nakama["acceleration"];
-        handling = originalCars[i].handling - specs["tire"] - free["towerbar"] - free["suspension"] - nakama["handling"];
-        nitro = originalCars[i].nitro - specs["nitro"];
-        efficiency = originalCars[i].efficiency + specs["ecu"];
+        speed = baseCars[i].speed - specs["engine"] - free["muffler"] - free["turbine"] - nakama["speed"]
+        acceleration = baseCars[i].acceleration - specs["transmission"] - free["clutch"] - free["shaft"] - nakama["acceleration"];
+        handling = baseCars[i].handling - specs["tire"] - free["towerbar"] - free["suspension"] - nakama["handling"];
+        nitro = baseCars[i].nitro - specs["nitro"];
+        efficiency = baseCars[i].efficiency + specs["ecu"];
         power = Math.floor((speed + acceleration + handling + nitro) / 20);
       }
       store.commit(`${id}/setSpeed`, {i, speed})
@@ -201,15 +229,15 @@ class List {
   static resetParts(param) {
     let id = param.id,
         cars = param.cars,
-        originalCars = param.originalCars,
+        baseCars = param.baseCars,
         store = param.store;
     for (let i = 0; i < cars.length; i++) {
-      let speed = originalCars[i].speed
-      let acceleration = originalCars[i].acceleration
-      let handling = originalCars[i].handling
-      let nitro = originalCars[i].nitro
-      let efficiency = originalCars[i].efficiency
-      let power = originalCars[i].power
+      let speed = baseCars[i].speed
+      let acceleration = baseCars[i].acceleration
+      let handling = baseCars[i].handling
+      let nitro = baseCars[i].nitro
+      let efficiency = baseCars[i].efficiency
+      let power = baseCars[i].power
       store.commit(`${id}/setSpeed`, {i, speed})
       store.commit(`${id}/setAcceleration`, {i, acceleration})
       store.commit(`${id}/setHandling`, {i, handling})

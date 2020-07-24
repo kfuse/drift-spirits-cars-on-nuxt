@@ -1,11 +1,11 @@
-import threeStarsCars from '~/carlist'
+import threeStarsCars from './carlist'
 
 export default () => ({
-  stars: 3,
   id: "threeStars",
+  stars: 3,
   plus: 0,
   cars: threeStarsCars,
-  originalCars: JSON.parse(JSON.stringify(threeStarsCars)),
+  baseCars: JSON.parse(JSON.stringify(threeStarsCars)),
   originalStars: 3,
   carLevel: 1,
   shownNitroless: false,
@@ -65,7 +65,5 @@ export default () => ({
       acceleration: 0,
       handling: 0
     }
-  },
-  isAppliedParts: false,
-  saveMessage: ""
+  }
 })
