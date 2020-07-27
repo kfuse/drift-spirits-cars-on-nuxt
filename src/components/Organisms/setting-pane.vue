@@ -6,9 +6,24 @@
     <li><a href="#" class="btnViewSetting" id="shownNitroless"><span></span>ニトロ抜き</a></li>
     <li><a href="#" class="btnViewSetting" id="shownPerformance"><span></span>コスパ</a></li>
     </ul>
-    <label for="filteringText" class="text">車名で絞込み: </label><input type="text" id="filteringText" class="iptText">
+    <label for="filteringText" class="text">車名で絞込み: </label><input type="text" id="filteringText" class="iptText" v-model="filteringText">
   </section>
 </template>
+
+<script>
+export default {
+  computed: {
+    filteringText: {
+      get() {
+        return this.$store.getters['getFilteringText']
+      },
+      set(value) {
+        this.$store.commit('setFilteringText', value)
+      }
+    }
+  }
+}
+</script>
 
 <style scoped>
 .titleSetting {

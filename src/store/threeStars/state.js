@@ -8,9 +8,6 @@ export default () => ({
   baseCars: JSON.parse(JSON.stringify(threeStarsCars)),
   originalStars: 3,
   carLevel: 1,
-  shownNitroless: false,
-  shownPerformance: false,
-  filteringText: "",
   parts: {
     engine: {
       size: 1,

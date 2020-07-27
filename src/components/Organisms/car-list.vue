@@ -104,7 +104,7 @@
 </tr>
 </thead>
 <tbody>
-<tr v-for="car in data.cars">
+<tr v-for="car in filteredCars">
 <td><a :href="`${car.link}`" v-if="car.link !== undefined" target="_blank">{{car.name}}</a><span v-else>{{car.name}}</span></td>
 <td>{{car.power}}</td>
 <td>{{car.speed}}</td>
@@ -138,6 +138,23 @@ export default {
   computed: {
     data() {
       return this.$store.state[this.id]
+    },
+    filteredCars: function() {
+      const self = this
+      let text = this.$store.state.filteringText
+      text = text.trim().replace(/ /g, '|')
+      text = text.replace(/\\/g, '')
+      text = text.replace(/\[/g, '\\[')
+      text = text.replace(/\]/g, '\\]')
+      text = text.replace(/\(/g, '\\(')
+      text = text.replace(/\)/g, '\\)')
+      text = text.replace(/\*/g, '\\*')
+      text = text.replace(/\+/g, '\\+')
+      text = text.replace(/\?/g, '\\?')
+      let regExp = new RegExp(text, 'i')
+      return this.$store.state[this.id].cars.filter( function(car) {
+        return car.name.match(regExp) !== null
+      })
     },
     carLevel: {
       get() {
