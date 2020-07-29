@@ -28,11 +28,11 @@ export default {
   methods: {
     toggleNitroless(e) {
       e.preventDefault()
-      this.$store.commit('setShownNitroless', !this.shownNitroless)
+      this.$store.dispatch('setShownNitroless', !this.shownNitroless)
     },
     togglePerformance(e) {
       e.preventDefault()
-      this.$store.commit('setShownPerformance', !this.shownPerformance)
+      this.$store.dispatch('setShownPerformance', !this.shownPerformance)
     }
   }
 }
