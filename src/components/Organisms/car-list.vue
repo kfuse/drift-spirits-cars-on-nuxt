@@ -98,8 +98,8 @@
 <th>ハンドリング</th>
 <th>ニトロ</th>
 <th>燃費</th>
-<th v-if="shownNitroless" class="nitroless">ニトロ抜き</th>
-<th v-if="shownPerformance" class="performance">コスパ</th>
+<client-only><th v-if="shownNitroless" class="nitroless">ニトロ抜き</th></client-only>
+<client-only><th v-if="shownPerformance" class="performance">コスパ</th></client-only>
 </tr>
 </thead>
 <tbody>
@@ -111,8 +111,8 @@
 <td>{{car.handling}}</td>
 <td>{{car.nitro}}</td>
 <td>{{car.efficiency}}</td>
-<td v-if="shownNitroless" class="nitroless">{{(car.speed + car.acceleration + car.handling) / 20}}</td>
-<td v-if="shownPerformance" class="performance">{{(car.power / car.efficiency).toFixed(2)}}</td>
+<client-only><td v-if="shownNitroless" class="nitroless">{{(car.speed + car.acceleration + car.handling) / 20}}</td></client-only>
+<client-only><td v-if="shownPerformance" class="performance">{{(car.power / car.efficiency).toFixed(2)}}</td></client-only>
 </tr>
 </tbody>
 </table>
