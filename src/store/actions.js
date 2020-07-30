@@ -19,5 +19,30 @@ export default {
         commit(`${id[star]}Stars/setParts`, parts)
       }
     }
+
+    // set setting data from localStorage
+    if (!JSON.parse(localStorage.getItem("content.driftspirits.car.list.setting"))) {
+      localStorage.setItem("content.driftspirits.car.list.setting", JSON.stringify({shownNitroless:false,shownPerformance:false}));
+    } else {
+      const setting = JSON.parse(localStorage.getItem("content.driftspirits.car.list.setting"));
+      commit('setShownNitroless', setting.shownNitroless)
+      commit('setShownPerformance', setting.shownPerformance)
+    }
+  },
+  setShownNitroless({ commit, state }, shownNitroless) {
+    const setting = {
+      shownNitroless: shownNitroless,
+      shownPerformance: state.shownPerformance
+    }
+    localStorage.setItem("content.driftspirits.car.list.setting", JSON.stringify(setting));
+    commit('setShownNitroless', shownNitroless)
+  },
+  setShownPerformance({ commit, state }, shownPerformance) {
+    const setting = {
+      shownNitroless: state.shownNitroless,
+      shownPerformance: shownPerformance
+    }
+    localStorage.setItem("content.driftspirits.car.list.setting", JSON.stringify(setting));
+    commit('setShownPerformance', shownPerformance)
   }
 }
