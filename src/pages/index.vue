@@ -4,6 +4,7 @@
     <div id="content">
       <setting-pane />
       <car-list :id="'threeStars'" />
+      <car-list :id="'fourStars'" />
     </div>
     <global-footer />
   </div>
