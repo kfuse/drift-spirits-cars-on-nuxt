@@ -5,6 +5,7 @@
       <setting-pane />
       <car-list :id="'threeStars'" />
       <car-list :id="'fourStars'" />
+      <car-list :id="'fiveStars'" />
     </div>
     <global-footer />
   </div>

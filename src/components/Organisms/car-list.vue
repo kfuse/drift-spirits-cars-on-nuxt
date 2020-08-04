@@ -2,6 +2,7 @@
 <section>
 <h3 v-if="data.id === 'threeStars'" class="titleStar">初期レアリティ☆☆☆ (星3)</h3>
 <h3 v-if="data.id === 'fourStars'" class="titleStar">初期レアリティ☆☆☆☆ (星4)</h3>
+<h3 v-if="data.id === 'fiveStars'" class="titleStar">初期レアリティ☆☆☆☆☆ (星5)</h3>
 <div class="carListTool">
 <span class="labelStatus">ステータス:</span>
 <a href="#" :class="`btnStars starStatus${data.stars}`" @click="incrementStar"></a>
