@@ -5,6 +5,7 @@ import getters from './getters'
 import threeStars from './threeStars'
 import fourStars from './fourStars'
 import fiveStars from './fiveStars'
+import sixStars from './sixStars'
 
 export default {
   state,
@@ -13,5 +14,6 @@ export default {
   getters,
   threeStars,
   fourStars,
-  fiveStars
+  fiveStars,
+  sixStars
 }
