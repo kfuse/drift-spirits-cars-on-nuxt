@@ -6,6 +6,7 @@ import threeStars from './threeStars'
 import fourStars from './fourStars'
 import fiveStars from './fiveStars'
 import sixStars from './sixStars'
+import sevenStars from './sevenStars'
 
 export default {
   state,
@@ -15,5 +16,6 @@ export default {
   threeStars,
   fourStars,
   fiveStars,
-  sixStars
+  sixStars,
+  sevenStars
 }

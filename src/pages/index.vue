@@ -7,6 +7,7 @@
       <car-list :id="'fourStars'" />
       <car-list :id="'fiveStars'" />
       <car-list :id="'sixStars'" />
+      <car-list :id="'sevenStars'" />
     </div>
     <global-footer />
   </div>
