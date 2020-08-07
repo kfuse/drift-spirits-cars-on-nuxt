@@ -1,0 +1,7 @@
+#dependencies
+node_modules
+
+#files, directories
+*.swp
+.nuxt
+.DS_Store

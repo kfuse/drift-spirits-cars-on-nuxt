@@ -2,7 +2,9 @@
 <section>
 <h3 v-if="data.id === 'threeStars'" class="titleStar">初期レアリティ☆☆☆ (星3)</h3>
 <h3 v-if="data.id === 'fourStars'" class="titleStar">初期レアリティ☆☆☆☆ (星4)</h3>
-<input type="text" v-model="data.filteringText" class="hiddenText">
+<h3 v-if="data.id === 'fiveStars'" class="titleStar">初期レアリティ☆☆☆☆☆ (星5)</h3>
+<h3 v-if="data.id === 'sixStars'" class="titleStar">初期レアリティ☆☆☆☆☆☆ (星6)</h3>
+<h3 v-if="data.id === 'sevenStars'" class="titleStar">初期レアリティ☆☆☆☆☆☆ (星7)</h3>
 <div class="carListTool">
 <span class="labelStatus">ステータス:</span>
 <a href="#" :class="`btnStars starStatus${data.stars}`" @click="incrementStar"></a>
@@ -99,12 +101,12 @@
 <th>ハンドリング</th>
 <th>ニトロ</th>
 <th>燃費</th>
-<th v-if="data.shownNitroless" class="nitroless">ニトロ抜き</th>
-<th v-if="data.shownPerformance" class="performance">コスパ</th>
+<client-only><th v-if="shownNitroless" class="nitroless">ニトロ抜き</th></client-only>
+<client-only><th v-if="shownPerformance" class="performance">コスパ</th></client-only>
 </tr>
 </thead>
 <tbody>
-<tr v-for="car in data.cars">
+<tr v-for="car in filteredCars">
 <td><a :href="`${car.link}`" v-if="car.link !== undefined" target="_blank">{{car.name}}</a><span v-else>{{car.name}}</span></td>
 <td>{{car.power}}</td>
 <td>{{car.speed}}</td>
@@ -112,8 +114,8 @@
 <td>{{car.handling}}</td>
 <td>{{car.nitro}}</td>
 <td>{{car.efficiency}}</td>
-<td v-if="data.shownNitroless" class="nitroless">{{(car.speed + car.acceleration + car.handling) / 20}}</td>
-<td v-if="data.shownPerformance" class="performance">{{(car.power / car.efficiency).toFixed(2)}}</td>
+<client-only><td v-if="shownNitroless" class="nitroless">{{(car.speed + car.acceleration + car.handling) / 20}}</td></client-only>
+<client-only><td v-if="shownPerformance" class="performance">{{(car.power / car.efficiency).toFixed(2)}}</td></client-only>
 </tr>
 </tbody>
 </table>
@@ -122,6 +124,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import List from '~/lib/list'
 
 export default {
@@ -138,6 +141,24 @@ export default {
   computed: {
     data() {
       return this.$store.state[this.id]
+    },
+    ...mapState(['shownNitroless', 'shownPerformance']),
+    filteredCars: function() {
+      const self = this
+      let text = this.$store.state.filteringText
+      text = text.trim().replace(/ /g, '|')
+      text = text.replace(/\\/g, '')
+      text = text.replace(/\[/g, '\\[')
+      text = text.replace(/\]/g, '\\]')
+      text = text.replace(/\(/g, '\\(')
+      text = text.replace(/\)/g, '\\)')
+      text = text.replace(/\*/g, '\\*')
+      text = text.replace(/\+/g, '\\+')
+      text = text.replace(/\?/g, '\\?')
+      let regExp = new RegExp(text, 'i')
+      return this.$store.state[this.id].cars.filter( function(car) {
+        return car.name.match(regExp) !== null
+      })
     },
     carLevel: {
       get() {

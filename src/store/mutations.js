@@ -1,2 +1,11 @@
-export default {
+export function setShownNitroless(state, shownNitroless) {
+  state.shownNitroless = shownNitroless
+}
+
+export function setShownPerformance(state, shownPerformance) {
+  state.shownPerformance = shownPerformance
+}
+
+export function setFilteringText(state, filteringText) {
+  state.filteringText = filteringText
 }

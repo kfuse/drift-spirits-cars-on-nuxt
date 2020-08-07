@@ -34,4 +34,4 @@ const threeStarsCars = [
   {name:"HIACE [北見サイクル]",power:387,speed:2088,acceleration:288,handling:1988,nitro:3388,efficiency:325}
 ]
 
-export default threeStarsCars;
+export default threeStarsCars

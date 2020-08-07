@@ -3,12 +3,40 @@
     <p class="text">初期レアリティ別に表示しています。レアリティや＋を指定したり、パーツ、愛車レベルを入力して戦闘力のシミュレーションができます。<br>※星7は解禁/未解禁も含めて計算上の値を表示しています。</p>
     <h2 class="titleSetting">表示設定</h2>
     <ul class="viewSetting clearfix">
-    <li><a href="#" class="btnViewSetting" id="shownNitroless"><span></span>ニトロ抜き</a></li>
-    <li><a href="#" class="btnViewSetting" id="shownPerformance"><span></span>コスパ</a></li>
+    <li><a href="#" :class="[shownNitroless === true ? 'btnViewSetting on' : 'btnViewSetting']" @click="toggleNitroless"><span></span>ニトロ抜き</a></li>
+    <li><a href="#" :class="[shownPerformance === true ? 'btnViewSetting on' : 'btnViewSetting']" @click="togglePerformance"><span></span>コスパ</a></li>
     </ul>
-    <label for="filteringText" class="text">車名で絞込み: </label><input type="text" id="filteringText" class="iptText">
+    <label for="filteringText" class="text">車名で絞込み: </label><input type="text" id="filteringText" class="iptText" v-model="filteringText">
   </section>
 </template>
+
+<script>
+import { mapState } from 'vuex'
+
+export default {
+  computed: {
+    ...mapState(['shownNitroless', 'shownPerformance']),
+    filteringText: {
+      get() {
+        return this.$store.getters['getFilteringText']
+      },
+      set(value) {
+        this.$store.commit('setFilteringText', value)
+      }
+    }
+  },
+  methods: {
+    toggleNitroless(e) {
+      e.preventDefault()
+      this.$store.dispatch('setShownNitroless', !this.shownNitroless)
+    },
+    togglePerformance(e) {
+      e.preventDefault()
+      this.$store.dispatch('setShownPerformance', !this.shownPerformance)
+    }
+  }
+}
+</script>
 
 <style scoped>
 .titleSetting {

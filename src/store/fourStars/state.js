@@ -1,12 +1,12 @@
-import threeStarsCars from './carlist'
+import fourStarsCars from './carlist'
 
 export default () => ({
-  id: "threeStars",
-  stars: 3,
+  id: "fourStars",
+  stars: 4,
   plus: 0,
-  cars: threeStarsCars,
-  baseCars: JSON.parse(JSON.stringify(threeStarsCars)),
-  originalStars: 3,
+  cars: fourStarsCars,
+  baseCars: JSON.parse(JSON.stringify(fourStarsCars)),
+  originalStars: 4,
   carLevel: 1,
   parts: {
     engine: {
