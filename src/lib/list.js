@@ -1,6 +1,7 @@
 class List {
-  static updatePlusStatus(id, cars, plus, store) {
+  static updatePlusStatus(id, baseCars, plus, store) {
     var i,
+        cars = JSON.parse(JSON.stringify(baseCars)),
         powerOffset,
         power,
         speed,
@@ -22,19 +23,21 @@ class List {
         specs       = 30;
         break;
     }
-    for (i = 0; i < cars.length; i++) {
-      power = cars[i].power + powerOffset;
-      speed = cars[i].speed + specs;
-      acceleration = cars[i].acceleration + specs;
-      handling = cars[i].handling + specs;
-      nitro = cars[i].nitro + specs;
+    for (i = 0; i < baseCars.length; i++) {
+      power = baseCars[i].power + powerOffset;
+      speed = baseCars[i].speed + specs;
+      acceleration = baseCars[i].acceleration + specs;
+      handling = baseCars[i].handling + specs;
+      nitro = baseCars[i].nitro + specs;
 
-      store.commit(`${id}/setBasePower`, {i, power})
-      store.commit(`${id}/setBaseSpeed`, {i, speed})
-      store.commit(`${id}/setBaseAcceleration`, {i, acceleration})
-      store.commit(`${id}/setBaseHandling`, {i, handling})
-      store.commit(`${id}/setBaseNitro`, {i, nitro})
+      cars[i].power = power;
+      cars[i].speed = speed;
+      cars[i].acceleration = acceleration;
+      cars[i].handling = handling;
+      cars[i].nitro = nitro;
     }
+    store.commit(`${id}/setBaseCars`, cars)
+    store.commit(`${id}/setCars`, cars)
   }
 
   static updateStarStatus(param) {
