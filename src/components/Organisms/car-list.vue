@@ -324,20 +324,14 @@ export default {
   methods: {
     incrementStar: function(e) {
       e.preventDefault()
-      let reset = false
       this.$store.commit(`${this.id}/incrementStars`)
-      if (this.data.stars === 8) {
-        reset = true
-      }
       List.updateStarStatus({
         id: this.data.id,
         baseCars: this.data.baseCars,
         stars: this.data.stars,
         originalStars: this.data.originalStars,
-        reset: reset,
         store: this.$store
       })
-      this.$store.commit(`${this.id}/setCars`, JSON.parse(JSON.stringify(this.data.baseCars)))
       if (this.isAppliedParts) {
         List.updateParts({
           id: this.data.id,

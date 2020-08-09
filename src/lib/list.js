@@ -49,10 +49,11 @@ class List {
         powerOffset,
         efficOffset,
         id = param.id,
+        cars = JSON.parse(JSON.stringify(param.baseCars)),
         baseCars = param.baseCars,
         stars = param.stars,
         originalStars = param.originalStars,
-        reset = param.reset,
+        reset = false,
         store = param.store,
         sevenStarOffset = {};
     if (originalStars < 5) {
@@ -63,6 +64,9 @@ class List {
       sevenStarOffset.power = 60;
       sevenStarOffset.specs = 300;
       sevenStarOffset.efficiency = 135;
+    }
+    if (stars === originalStars) {
+      reset = true
     }
     switch (stars) {
       case 3:
@@ -122,13 +126,15 @@ class List {
       }
       efficiency = baseCars[i].efficiency + efficOffset;
 
-      store.commit(`${id}/setBaseSpeed`, {i, speed})
-      store.commit(`${id}/setBaseAcceleration`, {i, acceleration})
-      store.commit(`${id}/setBaseHandling`, {i, handling})
-      store.commit(`${id}/setBaseNitro`, {i, nitro})
-      store.commit(`${id}/setBaseEfficiency`, {i, efficiency})
-      store.commit(`${id}/setBasePower`, {i, power})
+      cars[i].power = power;
+      cars[i].speed = speed;
+      cars[i].acceleration = acceleration;
+      cars[i].handling = handling;
+      cars[i].nitro = nitro;
+      cars[i].efficiency = efficiency;
     }
+    store.commit(`${id}/setBaseCars`, cars)
+    store.commit(`${id}/setCars`, cars)
   }
 
   static updateParts(param) {
