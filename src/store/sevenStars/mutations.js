@@ -20,6 +20,10 @@ export function setCars(state, cars) {
   state.cars = cars
 }
 
+export function setBaseCars(state, baseCars) {
+  state.baseCars = baseCars
+}
+
 export function setCarLevel(state, carLevel) {
   state.carLevel = carLevel
 }
