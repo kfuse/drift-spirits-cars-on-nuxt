@@ -1,5 +1,7 @@
 export default () => ({
   shownNitroless: false,
   shownPerformance: false,
-  filteringText: ""
+  filteringText: "",
+  selectedCarLength: 0,
+  footerMenuOpen: false
 })

@@ -9,3 +9,11 @@ export function setShownPerformance(state, shownPerformance) {
 export function setFilteringText(state, filteringText) {
   state.filteringText = filteringText
 }
+
+export function setSelectedCarLength(state, selectedCarLength) {
+  state.selectedCarLength = selectedCarLength
+}
+
+export function setFooterMenuOpen(state, flag) {
+  state.footerMenuOpen = flag
+}
