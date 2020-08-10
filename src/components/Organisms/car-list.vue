@@ -339,8 +339,7 @@ export default {
           baseCars: this.data.baseCars,
           carLevel: this.data.carLevel,
           parts: this.data.parts,
-          store: this.$store,
-          mode: "set"
+          store: this.$store
         })
       }
     },
@@ -356,8 +355,7 @@ export default {
           baseCars: this.data.baseCars,
           carLevel: this.data.carLevel,
           parts: this.data.parts,
-          store: this.$store,
-          mode: "set"
+          store: this.$store
         })
       }
     },
@@ -372,15 +370,13 @@ export default {
           baseCars: this.data.baseCars,
           carLevel: this.data.carLevel,
           parts: this.data.parts,
-          store: this.$store,
-          mode: "set"
+          store: this.$store
         })
       } else {
         this.isPartsOpen = false
         this.isAppliedParts = false
         List.resetParts({
           id: this.data.id,
-          cars: this.data.cars,
           baseCars: this.data.baseCars,
           store: this.$store
         })
@@ -400,8 +396,7 @@ export default {
         baseCars: this.data.baseCars,
         carLevel: this.data.carLevel,
         parts: this.data.parts,
-        store: this.$store,
-        mode: "set"
+        store: this.$store
       })
     }
   }
