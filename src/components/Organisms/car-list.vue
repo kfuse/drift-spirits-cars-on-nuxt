@@ -106,7 +106,7 @@
 </tr>
 </thead>
 <tbody>
-<tr v-for="car in filteredCars">
+<tr v-for="car in filteredCars" @click="onClickList">
 <td><a :href="`${car.link}`" v-if="car.link !== undefined" target="_blank">{{car.name}}</a><span v-else>{{car.name}}</span></td>
 <td>{{car.power}}</td>
 <td>{{car.speed}}</td>
@@ -398,12 +398,31 @@ export default {
         parts: this.data.parts,
         store: this.$store
       })
+    },
+    onClickList: function(e) {
+      e.preventDefault()
+      const tr = e.currentTarget
+      let length = this.$store.state.selectedCarLength
+      if (tr.className.match(/selected/)) {
+        tr.className = tr.className.replace(/selected/, "");
+        length--
+      } else {
+        tr.className += " selected";
+        length++
+      }
+      this.$store.commit('setSelectedCarLength', length)
+      // 2個以上選択でメニューを表示
+      if (length === 1) {
+        this.$store.commit('setFooterMenuOpen', false)
+      } else if (length >= 2 && this.$store.state.footerMenuOpen === false) {
+        this.$store.commit('setFooterMenuOpen', true)
+      }
     }
   }
 }
 </script>
 
-<style scoped>
+<style>
 .tableWrapper {
   width: 100%;
   overflow-x: scroll;
