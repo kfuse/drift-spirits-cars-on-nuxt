@@ -106,7 +106,7 @@
 </tr>
 </thead>
 <tbody>
-<tr v-for="car in filteredCars" @click="onClickList">
+<tr v-for="car in filteredCars" @click="onClickList" :data-index="car.index">
 <td><a :href="`${car.link}`" v-if="car.link !== undefined" target="_blank">{{car.name}}</a><span v-else>{{car.name}}</span></td>
 <td>{{car.power}}</td>
 <td>{{car.speed}}</td>
@@ -145,6 +145,7 @@ export default {
     ...mapState(['shownNitroless', 'shownPerformance']),
     filteredCars: function() {
       const self = this
+      let i = 0
       let text = this.$store.state.filteringText
       text = text.trim().replace(/ /g, '|')
       text = text.replace(/\\/g, '')
@@ -157,6 +158,8 @@ export default {
       text = text.replace(/\?/g, '\\?')
       let regExp = new RegExp(text, 'i')
       return this.$store.state[this.id].cars.filter( function(car) {
+        car.index = i
+        i++
         return car.name.match(regExp) !== null
       })
     },
@@ -402,6 +405,7 @@ export default {
     onClickList: function(e) {
       e.preventDefault()
       const tr = e.currentTarget
+      const index = tr.getAttribute('data-index')
       let length = this.$store.state.selectedCarLength
       if (tr.className.match(/selected/)) {
         tr.className = tr.className.replace(/selected/, "");
@@ -411,6 +415,7 @@ export default {
         length++
       }
       this.$store.commit('setSelectedCarLength', length)
+      this.$store.commit('addSelectedCar', {key: `${this.data.id}/${index}`, value: tr.innerHTML})
       // 2個以上選択でメニューを表示
       if (length === 1) {
         this.$store.commit('setFooterMenuOpen', false)

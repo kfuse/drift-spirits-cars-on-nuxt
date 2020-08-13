@@ -24,7 +24,18 @@
     <client-only><th v-if="shownPerformance" class="performance">コスパ</th></client-only>
     </tr>
     </thead>
-    <tbody v-html="carList">
+    <tbody>
+    <tr v-for="car in carList">
+    <td><a :href="`${car.link}`" v-if="car.link !== undefined" target="_blank">{{car.name}}</a><span v-else>{{car.name}}</span></td>
+    <td>{{car.power}}</td>
+    <td>{{car.speed}}</td>
+    <td>{{car.acceleration}}</td>
+    <td>{{car.handling}}</td>
+    <td>{{car.nitro}}</td>
+    <td>{{car.efficiency}}</td>
+    <client-only><td v-if="shownNitroless" class="nitroless">{{(car.speed + car.acceleration + car.handling) / 20}}</td></client-only>
+    <client-only><td v-if="shownPerformance" class="performance">{{(car.power / car.efficiency).toFixed(2)}}</td></client-only>
+    </tr>
     </tbody>
     </table>
     </div>
@@ -40,7 +51,7 @@ import { mapState } from 'vuex'
 export default {
   data() {
     return {
-      carList: ''
+      carList: {}
     }
   },
   computed: {
@@ -53,10 +64,19 @@ export default {
           carList = '',
           i = 0,
           modal = document.getElementById('modal');
+      /*
       for (i = 0; i < trs.length; i++) {
         this.carList += trs[i].outerHTML;
       }
+      */
       modal.style.display = 'block'
+      this.$store.state.selectedCars.forEach( (value, key) => {
+        const star = key.split('/')[0]
+        const id = parseInt(key.split('/')[1], 10)
+        this.$set(this.carList, i, this.$store.state[star].cars[id])
+        i++
+      })
+      console.log(this.carList)
       /*
       document.getElementById("compareDialog").innerHTML = modalTemplate.replace("{{carList}}", carList);
       document.getElementById("modal").style.display = "block";

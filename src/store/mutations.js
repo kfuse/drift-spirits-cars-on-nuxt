@@ -10,6 +10,10 @@ export function setFilteringText(state, filteringText) {
   state.filteringText = filteringText
 }
 
+export function addSelectedCar(state, selectedCar) {
+  state.selectedCars.set(selectedCar.key, selectedCar.value)
+}
+
 export function setSelectedCarLength(state, selectedCarLength) {
   state.selectedCarLength = selectedCarLength
 }
