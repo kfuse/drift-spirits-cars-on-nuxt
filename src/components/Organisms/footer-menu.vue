@@ -64,11 +64,6 @@ export default {
           carList = '',
           i = 0,
           modal = document.getElementById('modal');
-      /*
-      for (i = 0; i < trs.length; i++) {
-        this.carList += trs[i].outerHTML;
-      }
-      */
       modal.style.display = 'block'
       this.$store.state.selectedCars.forEach( (value, key) => {
         const star = key.split('/')[0]
@@ -77,20 +72,15 @@ export default {
         i++
       })
       console.log(this.carList)
-      /*
-      document.getElementById("compareDialog").innerHTML = modalTemplate.replace("{{carList}}", carList);
-      document.getElementById("modal").style.display = "block";
-      this.setView();
       // 背景をクリックでダイアログを閉じる
-      Util.addListener(document.getElementById("modal"), "click", function(e) {
+      document.getElementById("modal").addEventListener("click", function(e) {
         document.getElementById("modal").style.display = "none";
-        document.getElementById("compareDialog").innerHTML = "";
       });
-      Util.addListener(Util.getElementsByClassName(document.getElementById("modal"), "btnClose", "div")[0], "click", function(e) {
-        Util.preventDefault(e);
+      document.getElementById("modal").getElementsByClassName("btnClose")[0].addEventListener("click", function(e) {
+        e.preventDefault();
         document.getElementById("modal").style.display = "none";
-        document.getElementById("compareDialog").innerHTML = "";
       });
+      /*
       Util.addListener(Util.getElementsByClassName(document.getElementById("modal"), "modalBox", "div")[0], "click", function(e) {
         Util.stopPropagation(e);
       });
