@@ -61,7 +61,6 @@ export default {
     btnCompareClick: function(e) {
       e.preventDefault()
       let trs = document.getElementById('content').getElementsByClassName('selected'),
-          carList = '',
           i = 0,
           modal = document.getElementById('modal');
       modal.style.display = 'block'
@@ -71,26 +70,26 @@ export default {
         this.$set(this.carList, i, this.$store.state[star].cars[id])
         i++
       })
-      console.log(this.carList)
       // 背景をクリックでダイアログを閉じる
-      document.getElementById("modal").addEventListener("click", function(e) {
+      document.getElementById("modal").addEventListener("click", (e) => {
         document.getElementById("modal").style.display = "none";
+        for (let i in this.carList) {
+          this.$delete(this.carList, i);
+        }
       });
-      document.getElementById("modal").getElementsByClassName("btnClose")[0].addEventListener("click", function(e) {
+      document.getElementById("modal").getElementsByClassName("btnClose")[0].addEventListener("click", (e) => {
         e.preventDefault();
         document.getElementById("modal").style.display = "none";
+        for (let i in this.carList) {
+          this.$delete(this.carList, i);
+        }
       });
-      /*
-      Util.addListener(Util.getElementsByClassName(document.getElementById("modal"), "modalBox", "div")[0], "click", function(e) {
-        Util.stopPropagation(e);
-      });
-      */
     }
   }
 }
 </script>
 
-<style>
+<style scoped>
 #footerMenu {
   position: fixed;
   width: 100%;

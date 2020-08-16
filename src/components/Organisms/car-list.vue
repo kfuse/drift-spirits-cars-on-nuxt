@@ -410,12 +410,13 @@ export default {
       if (tr.className.match(/selected/)) {
         tr.className = tr.className.replace(/selected/, "");
         length--
+        this.$store.commit('deleteSelectedCar', {key: `${this.data.id}/${index}`})
       } else {
         tr.className += " selected";
         length++
+        this.$store.commit('addSelectedCar', {key: `${this.data.id}/${index}`, value: tr.innerHTML})
       }
       this.$store.commit('setSelectedCarLength', length)
-      this.$store.commit('addSelectedCar', {key: `${this.data.id}/${index}`, value: tr.innerHTML})
       // 2個以上選択でメニューを表示
       if (length === 1) {
         this.$store.commit('setFooterMenuOpen', false)
@@ -427,7 +428,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .tableWrapper {
   width: 100%;
   overflow-x: scroll;
