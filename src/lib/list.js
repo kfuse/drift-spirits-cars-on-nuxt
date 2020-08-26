@@ -1,6 +1,7 @@
 class List {
-  static updatePlusStatus(id, cars, plus, store) {
+  static updatePlusStatus(id, baseCars, plus, store) {
     var i,
+        cars = JSON.parse(JSON.stringify(baseCars)),
         powerOffset,
         power,
         speed,
@@ -22,19 +23,21 @@ class List {
         specs       = 30;
         break;
     }
-    for (i = 0; i < cars.length; i++) {
-      power = cars[i].power + powerOffset;
-      speed = cars[i].speed + specs;
-      acceleration = cars[i].acceleration + specs;
-      handling = cars[i].handling + specs;
-      nitro = cars[i].nitro + specs;
+    for (i = 0; i < baseCars.length; i++) {
+      power = baseCars[i].power + powerOffset;
+      speed = baseCars[i].speed + specs;
+      acceleration = baseCars[i].acceleration + specs;
+      handling = baseCars[i].handling + specs;
+      nitro = baseCars[i].nitro + specs;
 
-      store.commit(`${id}/setBasePower`, {i, power})
-      store.commit(`${id}/setBaseSpeed`, {i, speed})
-      store.commit(`${id}/setBaseAcceleration`, {i, acceleration})
-      store.commit(`${id}/setBaseHandling`, {i, handling})
-      store.commit(`${id}/setBaseNitro`, {i, nitro})
+      cars[i].power = power;
+      cars[i].speed = speed;
+      cars[i].acceleration = acceleration;
+      cars[i].handling = handling;
+      cars[i].nitro = nitro;
     }
+    store.commit(`${id}/setBaseCars`, cars)
+    store.commit(`${id}/setCars`, cars)
   }
 
   static updateStarStatus(param) {
@@ -49,10 +52,11 @@ class List {
         powerOffset,
         efficOffset,
         id = param.id,
+        cars = JSON.parse(JSON.stringify(param.baseCars)),
         baseCars = param.baseCars,
         stars = param.stars,
         originalStars = param.originalStars,
-        reset = param.reset,
+        reset = false,
         store = param.store,
         sevenStarOffset = {};
     if (originalStars < 5) {
@@ -63,6 +67,9 @@ class List {
       sevenStarOffset.power = 60;
       sevenStarOffset.specs = 300;
       sevenStarOffset.efficiency = 135;
+    }
+    if (stars === originalStars) {
+      reset = true
     }
     switch (stars) {
       case 3:
@@ -122,22 +129,24 @@ class List {
       }
       efficiency = baseCars[i].efficiency + efficOffset;
 
-      store.commit(`${id}/setBaseSpeed`, {i, speed})
-      store.commit(`${id}/setBaseAcceleration`, {i, acceleration})
-      store.commit(`${id}/setBaseHandling`, {i, handling})
-      store.commit(`${id}/setBaseNitro`, {i, nitro})
-      store.commit(`${id}/setBaseEfficiency`, {i, efficiency})
-      store.commit(`${id}/setBasePower`, {i, power})
+      cars[i].power = power;
+      cars[i].speed = speed;
+      cars[i].acceleration = acceleration;
+      cars[i].handling = handling;
+      cars[i].nitro = nitro;
+      cars[i].efficiency = efficiency;
     }
+    store.commit(`${id}/setBaseCars`, cars)
+    store.commit(`${id}/setCars`, cars)
   }
 
   static updateParts(param) {
     let cars = param.cars,
         baseCars = param.baseCars,
+        updatedCars = JSON.parse(JSON.stringify(baseCars)),
         carLevel = param.carLevel,
         parts = param.parts,
         id = param.id,
-        mode = param.mode,
         store = param.store,
         i,
         key,
@@ -202,49 +211,37 @@ class List {
       }
     }
     for (i = 0; i < cars.length; i++) {
-      if (mode === "set") {
-        speed = baseCars[i].speed + specs["engine"] + free["muffler"] + free["turbine"] + nakama["speed"]
-        acceleration = baseCars[i].acceleration + specs["transmission"] + free["clutch"] + free["shaft"] + nakama["acceleration"];
-        handling = baseCars[i].handling + specs["tire"] + free["towerbar"] + free["suspension"] + nakama["handling"];
-        nitro = baseCars[i].nitro + specs["nitro"];
-        efficiency = baseCars[i].efficiency - specs["ecu"];
-        power = Math.floor((speed + acceleration + handling + nitro) / 20);
-      } else {
-        speed = baseCars[i].speed - specs["engine"] - free["muffler"] - free["turbine"] - nakama["speed"]
-        acceleration = baseCars[i].acceleration - specs["transmission"] - free["clutch"] - free["shaft"] - nakama["acceleration"];
-        handling = baseCars[i].handling - specs["tire"] - free["towerbar"] - free["suspension"] - nakama["handling"];
-        nitro = baseCars[i].nitro - specs["nitro"];
-        efficiency = baseCars[i].efficiency + specs["ecu"];
-        power = Math.floor((speed + acceleration + handling + nitro) / 20);
-      }
-      store.commit(`${id}/setSpeed`, {i, speed})
-      store.commit(`${id}/setAcceleration`, {i, acceleration})
-      store.commit(`${id}/setHandling`, {i, handling})
-      store.commit(`${id}/setNitro`, {i, nitro})
-      store.commit(`${id}/setEfficiency`, {i, efficiency})
-      store.commit(`${id}/setPower`, {i, power})
+      speed = baseCars[i].speed + specs["engine"] + free["muffler"] + free["turbine"] + nakama["speed"]
+      acceleration = baseCars[i].acceleration + specs["transmission"] + free["clutch"] + free["shaft"] + nakama["acceleration"];
+      handling = baseCars[i].handling + specs["tire"] + free["towerbar"] + free["suspension"] + nakama["handling"];
+      nitro = baseCars[i].nitro + specs["nitro"];
+      efficiency = baseCars[i].efficiency - specs["ecu"];
+      power = Math.floor((speed + acceleration + handling + nitro) / 20);
+
+      updatedCars[i].power = power;
+      updatedCars[i].speed = speed;
+      updatedCars[i].acceleration = acceleration;
+      updatedCars[i].handling = handling;
+      updatedCars[i].nitro = nitro;
+      updatedCars[i].efficiency = efficiency;
     }
+    store.commit(`${id}/setCars`, updatedCars)
   }
 
   static resetParts(param) {
     let id = param.id,
-        cars = param.cars,
+        cars = JSON.parse(JSON.stringify(param.baseCars)),
         baseCars = param.baseCars,
         store = param.store;
-    for (let i = 0; i < cars.length; i++) {
-      let speed = baseCars[i].speed
-      let acceleration = baseCars[i].acceleration
-      let handling = baseCars[i].handling
-      let nitro = baseCars[i].nitro
-      let efficiency = baseCars[i].efficiency
-      let power = baseCars[i].power
-      store.commit(`${id}/setSpeed`, {i, speed})
-      store.commit(`${id}/setAcceleration`, {i, acceleration})
-      store.commit(`${id}/setHandling`, {i, handling})
-      store.commit(`${id}/setNitro`, {i, nitro})
-      store.commit(`${id}/setEfficiency`, {i, efficiency})
-      store.commit(`${id}/setPower`, {i, power})
+    for (let i = 0; i < baseCars.length; i++) {
+      cars[i].power = baseCars[i].power
+      cars[i].speed = baseCars[i].speed
+      cars[i].acceleration = baseCars[i].acceleration
+      cars[i].handling = baseCars[i].handling
+      cars[i].nitro = baseCars[i].nitro
+      cars[i].efficiency = baseCars[i].efficiency
     }
+    store.commit(`${id}/setCars`, cars)
   }
 }
 

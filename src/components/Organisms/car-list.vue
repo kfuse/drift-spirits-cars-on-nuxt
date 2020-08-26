@@ -106,7 +106,7 @@
 </tr>
 </thead>
 <tbody>
-<tr v-for="car in filteredCars">
+<tr v-for="car in filteredCars" @click="onClickList" :data-index="car.index">
 <td><a :href="`${car.link}`" v-if="car.link !== undefined" target="_blank">{{car.name}}</a><span v-else>{{car.name}}</span></td>
 <td>{{car.power}}</td>
 <td>{{car.speed}}</td>
@@ -145,6 +145,7 @@ export default {
     ...mapState(['shownNitroless', 'shownPerformance']),
     filteredCars: function() {
       const self = this
+      let i = 0
       let text = this.$store.state.filteringText
       text = text.trim().replace(/ /g, '|')
       text = text.replace(/\\/g, '')
@@ -157,6 +158,8 @@ export default {
       text = text.replace(/\?/g, '\\?')
       let regExp = new RegExp(text, 'i')
       return this.$store.state[this.id].cars.filter( function(car) {
+        car.index = i
+        i++
         return car.name.match(regExp) !== null
       })
     },
@@ -324,20 +327,14 @@ export default {
   methods: {
     incrementStar: function(e) {
       e.preventDefault()
-      let reset = false
       this.$store.commit(`${this.id}/incrementStars`)
-      if (this.data.stars === 8) {
-        reset = true
-      }
       List.updateStarStatus({
         id: this.data.id,
         baseCars: this.data.baseCars,
         stars: this.data.stars,
         originalStars: this.data.originalStars,
-        reset: reset,
         store: this.$store
       })
-      this.$store.commit(`${this.id}/setCars`, JSON.parse(JSON.stringify(this.data.baseCars)))
       if (this.isAppliedParts) {
         List.updateParts({
           id: this.data.id,
@@ -345,8 +342,7 @@ export default {
           baseCars: this.data.baseCars,
           carLevel: this.data.carLevel,
           parts: this.data.parts,
-          store: this.$store,
-          mode: "set"
+          store: this.$store
         })
       }
     },
@@ -362,8 +358,7 @@ export default {
           baseCars: this.data.baseCars,
           carLevel: this.data.carLevel,
           parts: this.data.parts,
-          store: this.$store,
-          mode: "set"
+          store: this.$store
         })
       }
     },
@@ -378,15 +373,13 @@ export default {
           baseCars: this.data.baseCars,
           carLevel: this.data.carLevel,
           parts: this.data.parts,
-          store: this.$store,
-          mode: "set"
+          store: this.$store
         })
       } else {
         this.isPartsOpen = false
         this.isAppliedParts = false
         List.resetParts({
           id: this.data.id,
-          cars: this.data.cars,
           baseCars: this.data.baseCars,
           store: this.$store
         })
@@ -406,9 +399,30 @@ export default {
         baseCars: this.data.baseCars,
         carLevel: this.data.carLevel,
         parts: this.data.parts,
-        store: this.$store,
-        mode: "set"
+        store: this.$store
       })
+    },
+    onClickList: function(e) {
+      e.preventDefault()
+      const tr = e.currentTarget
+      const index = tr.getAttribute('data-index')
+      let length = this.$store.state.selectedCarLength
+      if (tr.className.match(/selected/)) {
+        tr.className = tr.className.replace(/selected/, "");
+        length--
+        this.$store.commit('deleteSelectedCar', {key: `${this.data.id}/${index}`})
+      } else {
+        tr.className += " selected";
+        length++
+        this.$store.commit('addSelectedCar', {key: `${this.data.id}/${index}`, value: tr.innerHTML})
+      }
+      this.$store.commit('setSelectedCarLength', length)
+      // 2個以上選択でメニューを表示
+      if (length === 1) {
+        this.$store.commit('setFooterMenuOpen', false)
+      } else if (length >= 2 && this.$store.state.footerMenuOpen === false) {
+        this.$store.commit('setFooterMenuOpen', true)
+      }
     }
   }
 }
