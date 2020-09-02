@@ -9,6 +9,7 @@ const fourStarsCars = [
   {name:"HIRANO TIRE チェイサー初号機",power:490,speed:2742,acceleration:876,handling:2430,nitro:3757,efficiency:395},
   {name:"TRUENO 2door AE86 信司Ver.",power:490,speed:2336,acceleration:986,handling:2699,nitro:3798,efficiency:395},
   {name:"TRUENO 2door AE86 信司Ver. -究極コラボ- ",power:489,speed:2336,acceleration:986,handling:2699,nitro:3769,efficiency:395},
+  {name:"三刀流のナナミ86",power:488,speed:2444,acceleration:1070,handling:2794,nitro:3465,efficiency:385},
   {name:"SILVIA Q's 中村賢太Ver. (S14)",power:488,speed:2488,acceleration:1076,handling:2524,nitro:3691,efficiency:400},
   {name:"FAIRLADY Z Z33 池田Ver. -究極コラボ-",power:488,speed:2555,acceleration:801,handling:2648,nitro:3769,efficiency:400},
   {name:"MR2 G-Limited SW20 小柏カイVer.",power:488,speed:2347,acceleration:897,handling:2804,nitro:3727,efficiency:405},
@@ -83,6 +84,7 @@ const fourStarsCars = [
   {name:"SKYLINE GT-R BNR32 -爆高-",power:476,speed:2506,acceleration:656,handling:2506,nitro:3856,efficiency:420},
   {name:"14R ZN6",power:475,speed:2383,acceleration:933,handling:2683,nitro:3503,efficiency:385},
   {name:"TCP MAGIC RX-7",power:474,speed:2320,acceleration:948,handling:2435,nitro:3785,efficiency:395},
+  {name:"S660 JW5 [ファミスタ Ver.]",power:473,speed:2286,acceleration:1557,handling:2589,nitro:3047,efficiency:365},
   {name:"RX-7 FC3S 擬音Ver.",power:473,speed:2390,acceleration:742,handling:2611,nitro:3736,efficiency:380},
   {name:"MR-S ZZW30",power:473,speed:2352,acceleration:852,handling:2402,nitro:3857,efficiency:395},
   {name:"SKYLINE GT-R BCNR33 [3rd anniv.]",power:473,speed:2436,acceleration:801,handling:2496,nitro:3736,efficiency:395},
@@ -150,6 +152,7 @@ const fourStarsCars = [
   {name:"FAIRLADY 280Z T-Bar Roof (HS130)",power:454,speed:2363,acceleration:863,handling:2373,nitro:3481,efficiency:360},
   {name:"SKYLINE 2000 Turbo GT-ES (C211)",power:454,speed:2326,acceleration:888,handling:2354,nitro:3531,efficiency:360},
   {name:"CORVETTE C3",power:454,speed:2324,acceleration:724,handling:2124,nitro:3924,efficiency:435},
+  {name:"SKYLINE 2000GT-R (KPGC110)",power:453,speed:2539,acceleration:827,handling:2340,nitro:3373,efficiency:355},
   {name:"FAIRLADY Z 432-R (PS30)",power:451,speed:2314,acceleration:899,handling:2395,nitro:3418,efficiency:350},
   {name:"Focus ST",power:451,speed:2150,acceleration:820,handling:2258,nitro:3801,efficiency:385},
   {name:"CROWN ATHLETE GRS204",power:451,speed:2332,acceleration:732,handling:2132,nitro:3832,efficiency:405},
@@ -159,6 +162,7 @@ const fourStarsCars = [
   {name:"SAVANNA RX-7 SA22C",power:444,speed:2221,acceleration:621,handling:2421,nitro:3621,efficiency:400},
   {name:"ALCYONE SVX CXD",power:442,speed:2277,acceleration:627,handling:2177,nitro:3777,efficiency:420},
   {name:"FAIRLADY Z 240ZG (HS30)",power:439,speed:2223,acceleration:782,handling:2341,nitro:3451,efficiency:335},
+  {name:"ROADSTER NA6CE",power:438,speed:2205,acceleration:725,handling:2422,nitro:3427,efficiency:335},
   {name:"COPEN Robe LA400K",power:435,speed:2147,acceleration:697,handling:2117,nitro:3747,efficiency:365},
   {name:"SPORTS800 UP15",power:430,speed:2153,acceleration:653,handling:2153,nitro:3653,efficiency:345}
 ]
